@@ -7,7 +7,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.nastya.dao.MatchDAO;
 import org.nastya.dao.PlayerDAO;
-import org.nastya.dto.MatchDTO;
 import org.nastya.model.Player;
 import org.nastya.service.OngoingMatchesService;
 
@@ -40,10 +39,8 @@ public class NewMatchServlet extends HttpServlet {
             player2 = playerDAO.save(namePlayer2);
         }
 
-        MatchDTO matchDTO = new MatchDTO(player1, player2);
-        String matchId = UUID.randomUUID().toString();
-        OngoingMatchesService.add(matchDTO, matchId);
-        //TODO переделать ссылку
+        UUID matchId = OngoingMatchesService.add(player1, player2);
+        //TODO проверить ссылку
         response.sendRedirect(request.getContextPath() + "/match-score?uuid=" + matchId);
     }
 }
