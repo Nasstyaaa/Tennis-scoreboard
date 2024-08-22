@@ -1,5 +1,6 @@
 plugins {
     id("java")
+    id("war")
 }
 
 group = "org.example"
@@ -9,9 +10,19 @@ repositories {
     mavenCentral()
 }
 
+java {
+    sourceCompatibility = JavaVersion.VERSION_18
+    targetCompatibility = JavaVersion.VERSION_18
+}
+
 dependencies {
-    testImplementation(platform("org.junit:junit-bom:5.10.0"))
-    testImplementation("org.junit.jupiter:junit-jupiter")
+    implementation("org.hibernate.orm:hibernate-core:6.6.0.Final")
+    implementation("com.h2database:h2:2.3.232")
+    compileOnly("jakarta.servlet:jakarta.servlet-api:6.1.0")
+}
+
+tasks.withType<War> {
+    archiveFileName.set("${project.name}.war")
 }
 
 tasks.test {
