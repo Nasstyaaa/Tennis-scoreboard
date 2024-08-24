@@ -1,4 +1,4 @@
-package org.nastya.dao;
+package org.nastya.DAO;
 
 
 import org.hibernate.Session;

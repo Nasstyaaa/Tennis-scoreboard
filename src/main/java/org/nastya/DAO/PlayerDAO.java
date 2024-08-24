@@ -1,12 +1,14 @@
-package org.nastya.dao;
+package org.nastya.DAO;
 
 import org.hibernate.Session;
 import org.nastya.model.Player;
 import org.nastya.util.DataSourceUtil;
 
+import java.util.Optional;
+
 public class PlayerDAO {
 
-    public Player find(String name) {
+    public Optional<Player> find(String name) {
 
         try (Session session = DataSourceUtil.getSession()) {
             session.beginTransaction();
@@ -15,7 +17,7 @@ public class PlayerDAO {
             Player player = (Player) session.createQuery(queryString).setParameter("name", name).uniqueResult();
 
             session.getTransaction().commit();
-            return player;
+            return Optional.ofNullable(player);
         }
     }
 

@@ -1,11 +1,21 @@
 package org.nastya.model;
 
+import java.util.HashMap;
+
 public class MatchScore {
-    private int pointPlayer1;
-    private int pointPlayer2;
+    Score scorePlayer1;
+    Score scorePlayer2;
 
     public MatchScore() {
-        pointPlayer1 = 0;
-        pointPlayer2 = 0;
+        scorePlayer1 = new Score();
+        scorePlayer2 = new Score();
+    }
+
+    public Score getScorePlayer1() {
+        return scorePlayer1;
+    }
+
+    public Score getScorePlayer2() {
+        return scorePlayer2;
     }
 }

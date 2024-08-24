@@ -7,7 +7,7 @@ import org.nastya.model.Player;
 import java.util.HashMap;
 import java.util.UUID;
 
-public class OngoingMatchesService {
+public class OngoingMatchesService {//TODO попробовать убрать static
     private static HashMap<UUID, MatchDTO> matches = new HashMap<>();
 
     public static UUID add(Player player1, Player player2){
@@ -16,5 +16,9 @@ public class OngoingMatchesService {
 
         matches.put(matchId, matchDTO);
         return matchId;
+    }
+
+    public static MatchDTO get(UUID uuid){
+        return matches.get(uuid);
     }
 }
