@@ -7,10 +7,20 @@ import org.nastya.model.Player;
 import java.util.HashMap;
 import java.util.UUID;
 
-public class OngoingMatchesService {//TODO попробовать убрать static
+public class OngoingMatchesService {
+    private static OngoingMatchesService instance;
     private static HashMap<UUID, MatchDTO> matches = new HashMap<>();
 
-    public static UUID add(Player player1, Player player2){
+    private OngoingMatchesService() {}
+
+    public static OngoingMatchesService getInstance(){
+        if(instance == null){
+            instance = new OngoingMatchesService();
+        }
+        return instance;
+    }
+
+    public UUID add(Player player1, Player player2){
         MatchDTO matchDTO = new MatchDTO(player1, player2, new MatchScore());
         UUID matchId = UUID.randomUUID();
 
@@ -18,7 +28,7 @@ public class OngoingMatchesService {//TODO попробовать убрать s
         return matchId;
     }
 
-    public static MatchDTO get(UUID uuid){
+    public MatchDTO get(UUID uuid){
         return matches.get(uuid);
     }
 }

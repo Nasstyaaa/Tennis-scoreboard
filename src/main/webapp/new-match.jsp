@@ -11,7 +11,7 @@
         }
 
         input{
-            background: none;
+            background-color: rgba(230, 100, 0, 0.2);
             border: 2px solid ghostwhite;
             color: ghostwhite;
             font-weight: bold;
@@ -19,11 +19,11 @@
             padding: 5%;
             height: 10%;
             margin-bottom: 5%;
-            font-size: 150%;
+            font-size: 200%;
         }
 
         input:hover {
-            color: darksalmon;
+            color: brown;
         }
 
         #player1 {
@@ -42,13 +42,18 @@
 
         #play {
             position: fixed;
-            top: 80%;
+            top: 90%;
             left: 45%;
             transform: translate(-50%, -50%);
         }
     </style>
 </head>
     <body>
+        <% if (request.getAttribute("errorMessage") != null) { %>
+            <div style="color: red; text-align: center; margin-bottom: 20px; font-style: italic; font-size: 120%;">
+                <%= request.getAttribute("errorMessage") %>
+            </div>
+        <% } %>
         <form method="POST" action="/new-match">
             <p id="player1"><input type="text" placeholder="Player 1 name" name="player1"><br></p>
             <p id="player2"><input type="text" placeholder="Player 2 name" name="player2"></p>
