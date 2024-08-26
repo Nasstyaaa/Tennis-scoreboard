@@ -34,7 +34,8 @@ public class MatchScoreCalculationService {
                 score.setPoint(40);
             case 40:
                 if (scoreOpponent.getPoint() == 40) {
-                    break; //TODO Игрок, имеющий преимущество и выигравший следующую подачу, побеждает в гейме.
+                    break; //TODOЕсли оба игрока имеют по 40, то выигрыш следующей подачи дает преимущество.
+                    // Игрок, имеющий преимущество и выигравший следующую подачу, побеждает в гейме.
                 }
                 score.setPoint(0);
                 scoreOpponent.setPoint(0);
