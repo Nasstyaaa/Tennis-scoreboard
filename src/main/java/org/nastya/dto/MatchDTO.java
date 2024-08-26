@@ -7,6 +7,7 @@ public class MatchDTO {
     private Player player1;
     private Player player2;
     private MatchScore matchScore;
+    private Player winner;
 
     public MatchDTO(Player player1, Player player2, MatchScore matchScore) {
         this.player1 = player1;
@@ -24,5 +25,12 @@ public class MatchDTO {
 
     public MatchScore getMatchScore() {
         return matchScore;
+    }
+
+    public Player getPlayerById(String id) {
+        if (player1.getId().equals(Integer.valueOf(id))) {
+            return player1;
+        }
+        return player2;
     }
 }

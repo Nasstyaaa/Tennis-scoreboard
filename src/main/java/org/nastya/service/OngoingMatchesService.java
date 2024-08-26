@@ -31,4 +31,8 @@ public class OngoingMatchesService {
     public MatchDTO get(UUID uuid){
         return matches.get(uuid);
     }
+
+    public void delete(UUID uuid){
+        matches.remove(uuid);
+    }
 }
