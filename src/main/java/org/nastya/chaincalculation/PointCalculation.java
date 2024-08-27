@@ -11,18 +11,18 @@ public class PointCalculation extends Calculation {
         Score scoreOpponent = matchDTO.getMatchScore().getScorePlayer2();
 
         if (!matchDTO.isTieBreak()) {
-            switch (score.getPointsNumber()) {
+            switch (score.getPointCount()) {
                 case 0:
-                    score.setPointsNumber(15);
+                    score.setPointCount(15);
                     break;
                 case 15:
-                    score.setPointsNumber(30);
+                    score.setPointCount(30);
                     break;
                 case 30:
-                    score.setPointsNumber(40);
+                    score.setPointCount(40);
                     break;
                 case 40:
-                    if (scoreOpponent.getPointsNumber() <= 30 || score.isHasAdvantage()) {
+                    if (scoreOpponent.getPointCount() <= 30 || score.isHasAdvantage()) {
                         nextCalculation.calculate(matchDTO);
                         break;
                     } else if (!scoreOpponent.isHasAdvantage()) {
@@ -34,7 +34,7 @@ public class PointCalculation extends Calculation {
                     }
             }
         } else {
-            score.setPointsNumber(score.getPointsNumber() + 1);
+            score.setPointCount(score.getPointCount() + 1);
             nextCalculation.calculate(matchDTO);
         }
     }

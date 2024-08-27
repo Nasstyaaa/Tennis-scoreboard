@@ -11,22 +11,27 @@ public class SetCalculation extends Calculation {
         Score scoreOpponent = matchDTO.getMatchScore().getScorePlayer2();
 
         if (!matchDTO.isTieBreak()) {
-            if (scoreOpponent.getGamesNumber() < 5 || score.getGamesNumber() == 7) {
-                score.setSetsNumber(score.getSetsNumber() + 1);
-            } else if (scoreOpponent.getGamesNumber() == 6) {
+            if (scoreOpponent.getGameCount() < 5 || score.getGameCount() == 7) {
+                score.setSetsCount(score.getSetsCount() + 1);
+
+                score.setGameCount(0);
+                scoreOpponent.setGameCount(0);
+            } else if (scoreOpponent.getGameCount() == 6) {
                 matchDTO.setTieBreak(true);
+
+                score.setGameCount(0);
+                scoreOpponent.setGameCount(0);
             }
         } else {
-            if (score.getPointsNumber() - scoreOpponent.getPointsNumber() >= 2) {
-                score.setSetsNumber(score.getSetsNumber() + 1);
+            if (score.getPointCount() - scoreOpponent.getPointCount() >= 2) {
+                score.setSetsCount(score.getSetsCount() + 1);
                 matchDTO.setTieBreak(false);
+                score.setPointCount(0);
+                scoreOpponent.setPointCount(0);
             }
         }
-        score.setGamesNumber(0);
-        scoreOpponent.setGamesNumber(0);
 
-
-        if (score.getSetsNumber() == 2) {
+        if (score.getSetsCount() == 2) {
             matchDTO.setWinner(matchDTO.getPlayer1());
         }
     }

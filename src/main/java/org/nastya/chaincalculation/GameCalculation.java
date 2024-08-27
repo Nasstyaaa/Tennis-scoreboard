@@ -11,14 +11,15 @@ public class GameCalculation extends Calculation {
         Score scoreOpponent = matchDTO.getMatchScore().getScorePlayer2();
 
         if (!matchDTO.isTieBreak()) {
-            score.setGamesNumber(score.getGamesNumber() + 1);
-            score.setPointsNumber(0);
-            scoreOpponent.setPointsNumber(0);
+            score.setGameCount(score.getGameCount() + 1);
+            score.setPointCount(0);
+            scoreOpponent.setPointCount(0);
+            score.setHasAdvantage(false);
 
-            if (score.getGamesNumber() >= 6) {
+            if (score.getGameCount() >= 6) {
                 nextCalculation.calculate(matchDTO);
             }
-        } else if (score.getPointsNumber() >= 7) {
+        } else if (score.getPointCount() >= 7) {
             nextCalculation.calculate(matchDTO);
         }
     }

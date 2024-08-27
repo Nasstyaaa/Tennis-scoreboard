@@ -26,16 +26,16 @@ public class MatchScoreCalculationServiceTest {
 
     @Test
     public void pointsNumberShouldIncrease(){
-        score.setPointsNumber(15);
+        score.setPointCount(15);
 
         matchScoreCalculationService.compute(matchDTO);
-        assertEquals(30, score.getPointsNumber());
+        assertEquals(30, score.getPointCount());
     }
 
     @Test
     public void playerShouldGetAdvantage(){
-        score.setPointsNumber(40);
-        scoreOpponent.setPointsNumber(40);
+        score.setPointCount(40);
+        scoreOpponent.setPointCount(40);
 
         matchScoreCalculationService.compute(matchDTO);
         assertEquals(true, score.isHasAdvantage());
@@ -43,76 +43,77 @@ public class MatchScoreCalculationServiceTest {
 
     @Test
     public void gamesNumberShouldIncreaseAfterGetAdvantage(){
-        score.setPointsNumber(40);
+        score.setPointCount(40);
         score.setHasAdvantage(true);
-        scoreOpponent.setPointsNumber(40);
+        scoreOpponent.setPointCount(40);
 
         matchScoreCalculationService.compute(matchDTO);
-        assertEquals(1, score.getGamesNumber());
-        assertEquals(0, score.getPointsNumber());
-        assertEquals(0, scoreOpponent.getPointsNumber());
+        assertEquals(1, score.getGameCount());
+        assertEquals(0, score.getPointCount());
+        assertEquals(0, scoreOpponent.getPointCount());
+        assertEquals(false, score.isHasAdvantage());
     }
 
     @Test
     public void gamesNumberShouldIncreaseIfOpponentsLess(){
-        score.setPointsNumber(40);
-        scoreOpponent.setPointsNumber(30);
+        score.setPointCount(40);
+        scoreOpponent.setPointCount(30);
 
         matchScoreCalculationService.compute(matchDTO);
-        assertEquals(1, score.getGamesNumber());
-        assertEquals(0, score.getPointsNumber());
-        assertEquals(0, scoreOpponent.getPointsNumber());
+        assertEquals(1, score.getGameCount());
+        assertEquals(0, score.getPointCount());
+        assertEquals(0, scoreOpponent.getPointCount());
     }
 
     @Test
     public void opponentPlayerShouldLoseAdvantage(){
-        score.setPointsNumber(40);
-        scoreOpponent.setPointsNumber(40);
+        score.setPointCount(40);
+        scoreOpponent.setPointCount(40);
         scoreOpponent.setHasAdvantage(true);
 
         matchScoreCalculationService.compute(matchDTO);
-        assertEquals(0, score.getGamesNumber());
-        assertEquals(40, score.getPointsNumber());
-        assertEquals(40, scoreOpponent.getPointsNumber());
+        assertEquals(0, score.getGameCount());
+        assertEquals(40, score.getPointCount());
+        assertEquals(40, scoreOpponent.getPointCount());
         assertEquals(false, scoreOpponent.isHasAdvantage());
     }
 
 
     @Test
     public void setsNumberShouldIncreaseIfOpponentsLess(){
-        score.setPointsNumber(40);
+        score.setPointCount(40);
         score.setHasAdvantage(true);
-        scoreOpponent.setPointsNumber(40);
-        score.setGamesNumber(5);
-        scoreOpponent.setGamesNumber(4);
+        scoreOpponent.setPointCount(40);
+        score.setGameCount(5);
+        scoreOpponent.setGameCount(4);
 
         matchScoreCalculationService.compute(matchDTO);
-        assertEquals(0, score.getGamesNumber());
-        assertEquals(0, scoreOpponent.getGamesNumber());
-        assertEquals(1, score.getSetsNumber());
+        assertEquals(0, score.getGameCount());
+        assertEquals(0, scoreOpponent.getGameCount());
+        assertEquals(1, score.getSetsCount());
     }
 
     @Test
     public void setsNumberShouldIncreaseIfOpponentsLessThanTwo(){
-        score.setPointsNumber(40);
+        score.setPointCount(40);
         score.setHasAdvantage(true);
-        scoreOpponent.setPointsNumber(40);
-        score.setGamesNumber(6);
-        scoreOpponent.setGamesNumber(5);
+        scoreOpponent.setPointCount(40);
+        score.setGameCount(6);
+        scoreOpponent.setGameCount(5);
 
         matchScoreCalculationService.compute(matchDTO);
-        assertEquals(0, score.getGamesNumber());
-        assertEquals(0, scoreOpponent.getGamesNumber());
-        assertEquals(1, score.getSetsNumber());
+        assertEquals(0, score.getGameCount());
+        assertEquals(0, scoreOpponent.getGameCount());
+        assertEquals(1, score.getSetsCount());
     }
 
     @Test
     public void isTieBreakShouldTrue(){
-        score.setPointsNumber(40);
+        score.setPointCount(40);
         score.setHasAdvantage(true);
-        scoreOpponent.setPointsNumber(40);
-        score.setGamesNumber(5);
-        scoreOpponent.setGamesNumber(6);
+        scoreOpponent.setPointCount(40);
+        score.setGameCount(5);
+        scoreOpponent.setGameCount(6);
 
         matchScoreCalculationService.compute(matchDTO);
         assertEquals(true, matchDTO.isTieBreak());
@@ -120,35 +121,35 @@ public class MatchScoreCalculationServiceTest {
 
     @Test
     public void pointsNumberShouldIncreaseInTieBreak(){
-        score.setPointsNumber(40);
+        score.setPointCount(40);
         score.setHasAdvantage(true);
-        scoreOpponent.setPointsNumber(40);
-        score.setGamesNumber(5);
-        scoreOpponent.setGamesNumber(6);
+        scoreOpponent.setPointCount(40);
+        score.setGameCount(5);
+        scoreOpponent.setGameCount(6);
         matchScoreCalculationService.compute(matchDTO);
 
         matchScoreCalculationService.compute(matchDTO);
-        assertEquals(1, score.getPointsNumber());
+        assertEquals(1, score.getPointCount());
     }
 
     @Test
     public void setsNumberShouldIncreaseInTieBreak(){
         matchDTO.setTieBreak(true);
-        score.setPointsNumber(7);
-        scoreOpponent.setPointsNumber(6);
+        score.setPointCount(7);
+        scoreOpponent.setPointCount(6);
         matchScoreCalculationService.compute(matchDTO);
 
         assertEquals(false, matchDTO.isTieBreak());
-        assertEquals(1, score.getSetsNumber());
+        assertEquals(1, score.getSetsCount());
     }
 
     @Test
     public void winnerShouldNotNull(){
-        score.setSetsNumber(1);
-        scoreOpponent.setSetsNumber(1);
+        score.setSetsCount(1);
+        scoreOpponent.setSetsCount(1);
         matchDTO.setTieBreak(true);
-        score.setPointsNumber(7);
-        scoreOpponent.setPointsNumber(6);
+        score.setPointCount(7);
+        scoreOpponent.setPointCount(6);
         matchScoreCalculationService.compute(matchDTO);
 
         assertEquals(player1, matchDTO.getWinner());

@@ -1,47 +1,47 @@
 package org.nastya.model;
 
 public class Score {
-    private int pointsNumber;
-    private int gamesNumber;
-    private int setNumber;
+    private int pointCount;
+    private int gameCount;
+    private int setCount;
     private boolean hasAdvantage;
 
     public Score() {
-        pointsNumber = 0;
-        gamesNumber = 0;
-        setNumber = 0;
+        pointCount = 0;
+        gameCount = 0;
+        setCount = 0;
         hasAdvantage = false;
     }
 
-    public Score(int pointsNumber, int gamesNumber, int setNumber, boolean hasAdvantage) {
-        this.pointsNumber = pointsNumber;
-        this.gamesNumber = gamesNumber;
-        this.setNumber = setNumber;
+    public Score(int pointCount, int gameCount, int setCount, boolean hasAdvantage) {
+        this.pointCount = pointCount;
+        this.gameCount = gameCount;
+        this.setCount = setCount;
         this.hasAdvantage = hasAdvantage;
     }
 
-    public int getPointsNumber() {
-        return pointsNumber;
+    public int getPointCount() {
+        return pointCount;
     }
 
-    public int getGamesNumber() {
-        return gamesNumber;
+    public int getGameCount() {
+        return gameCount;
     }
 
-    public int getSetsNumber() {
-        return setNumber;
+    public int getSetsCount() {
+        return setCount;
     }
 
-    public void setPointsNumber(int pointsNumber) {
-        this.pointsNumber = pointsNumber;
+    public void setPointCount(int pointCount) {
+        this.pointCount = pointCount;
     }
 
-    public void setGamesNumber(int gamesNumber) {
-        this.gamesNumber = gamesNumber;
+    public void setGameCount(int gameCount) {
+        this.gameCount = gameCount;
     }
 
-    public void setSetsNumber(int setNumber) {
-        this.setNumber = setNumber;
+    public void setSetsCount(int setNumber) {
+        this.setCount = setNumber;
     }
 
     public boolean isHasAdvantage() {
