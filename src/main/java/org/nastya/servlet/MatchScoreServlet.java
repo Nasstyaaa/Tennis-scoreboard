@@ -7,7 +7,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.nastya.DAO.MatchDAO;
 import org.nastya.dto.MatchDTO;
-import org.nastya.model.MatchScore;
+import org.nastya.model.Match;
 import org.nastya.service.MatchScoreCalculationService;
 import org.nastya.service.OngoingMatchesService;
 
@@ -33,23 +33,25 @@ public class MatchScoreServlet extends HttpServlet {
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
-        boolean isGameOver = false;
         UUID uuid = UUID.fromString(request.getParameter("uuid"));
         MatchDTO currentMatch = ongoingMatchesService.get(uuid);
-        MatchScore currentMatchScore = currentMatch.getMatchScore();
 
         String id = request.getParameter("idPlayer");
+        //TODO проверять id
         if (Integer.getInteger(id) == 1) {
-            isGameOver = matchCalculationService.compute(currentMatchScore.getScorePlayer1(), currentMatchScore.getScorePlayer2());
+            currentMatch = matchCalculationService.compute(currentMatch);
         } else if (Integer.getInteger(id) == 2) {
-            isGameOver = matchCalculationService.compute(currentMatchScore.getScorePlayer2(), currentMatchScore.getScorePlayer1());
+            currentMatch.getMatchScore().changeScorePlayers();
+            currentMatch = matchCalculationService.compute(currentMatch);
+            currentMatch.getMatchScore().changeScorePlayers();
         }
 
-        if (!isGameOver) {
+        if (currentMatch.getWinner() == null) {
             //TODO рендерится таблица счёта матча с кнопками, описанными выше
         } else {
             ongoingMatchesService.delete(uuid);
-            matchDAO.save(currentMatch.getPlayer1(), currentMatch.getPlayer2(), currentMatch.getPlayerById(id));
+            Match match = new Match(currentMatch.getPlayer1(), currentMatch.getPlayer2(), currentMatch.getWinner());
+            matchDAO.save(match);
             //TODO рендерим финальный счёт
         }
     }

@@ -1,12 +1,16 @@
 package org.nastya.chaincalculation;
 
+import org.nastya.dto.MatchDTO;
 import org.nastya.model.Score;
 
 public class PointCalculation extends Calculation {
 
     @Override
-    public void calculate(Score score, Score scoreOpponent) {
-        if (!isTieBreak) {
+    public void calculate(MatchDTO matchDTO) {
+        Score score = matchDTO.getMatchScore().getScorePlayer2();
+        Score scoreOpponent = matchDTO.getMatchScore().getScorePlayer2();
+
+        if (!matchDTO.isTieBreak()) {
             switch (score.getPoint()) {
                 case 0:
                     score.setPoint(15);
@@ -16,7 +20,7 @@ public class PointCalculation extends Calculation {
                     break;
                 case 30:
                     if (scoreOpponent.getPoint() <= 30) {
-                        nextCalculation.calculate(score, scoreOpponent);
+                        nextCalculation.calculate(matchDTO);
                         break;
                     }
                     score.setPoint(40);
@@ -27,12 +31,12 @@ public class PointCalculation extends Calculation {
                         scoreOpponent.setHasAdvantage(false);
                         break;
                     }
-                    nextCalculation.calculate(score, scoreOpponent);
+                    nextCalculation.calculate(matchDTO);
                     break;
             }
         } else {
             score.setPoint(score.getPoint() + 1);
-            nextCalculation.calculate(score, scoreOpponent);
+            nextCalculation.calculate(matchDTO);
         }
     }
 }

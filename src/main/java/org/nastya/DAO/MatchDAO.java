@@ -8,12 +8,11 @@ import org.nastya.util.DataSourceUtil;
 
 public class MatchDAO {
 
-    public Match save(Player player1, Player player2, Player winner) {
+    public Match save(Match match) {
 
         try(Session session = DataSourceUtil.getSession()) {
             session.beginTransaction();
 
-            Match match = new Match(player1, player2, winner);
             session.save(match);
 
             session.getTransaction().commit();

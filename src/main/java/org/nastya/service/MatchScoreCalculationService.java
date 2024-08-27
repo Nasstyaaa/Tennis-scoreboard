@@ -1,32 +1,15 @@
 package org.nastya.service;
 
-import org.nastya.chaincalculation.GameCalculation;
-import org.nastya.chaincalculation.MatchCalculation;
-import org.nastya.chaincalculation.PointCalculation;
-import org.nastya.chaincalculation.SetCalculation;
-import org.nastya.model.Score;
+import org.nastya.chaincalculation.*;
+import org.nastya.dto.MatchDTO;
 
 
 public class MatchScoreCalculationService {
-    private final PointCalculation pointCalculation;
-    private final GameCalculation gameCalculation;
-    private final SetCalculation setCalculation;
-    private final MatchCalculation matchCalculation;
+    private final Calculation calculation = ChainCalculationBuilder.buildChain();
 
-    public MatchScoreCalculationService() {
-        pointCalculation = new PointCalculation();
-        gameCalculation = new GameCalculation();
-        setCalculation = new SetCalculation();
-        matchCalculation = new MatchCalculation();
-
-        pointCalculation.setNextCalculation(gameCalculation);
-        gameCalculation.setNextCalculation(setCalculation);
-        setCalculation.setNextCalculation(matchCalculation);
-    }
-
-    public boolean compute(Score score, Score scoreOpponent) {
-        pointCalculation.calculate(score, scoreOpponent);
-        return matchCalculation.isMatchOver();
+    public MatchDTO compute(MatchDTO matchDTO) {
+        calculation.calculate(matchDTO);
+        return matchDTO;
     }
 }
 

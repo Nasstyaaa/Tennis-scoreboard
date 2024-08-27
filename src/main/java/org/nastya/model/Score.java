@@ -13,6 +13,13 @@ public class Score {
         hasAdvantage = false;
     }
 
+    public Score(int point, int game, int set, boolean hasAdvantage) {
+        this.point = point;
+        this.game = game;
+        this.set = set;
+        this.hasAdvantage = hasAdvantage;
+    }
+
     public int getPoint() {
         return point;
     }

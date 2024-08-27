@@ -1,7 +1,5 @@
 package org.nastya.model;
 
-import java.util.HashMap;
-
 public class MatchScore {
     Score scorePlayer1;
     Score scorePlayer2;
@@ -17,5 +15,11 @@ public class MatchScore {
 
     public Score getScorePlayer2() {
         return scorePlayer2;
+    }
+
+    public void changeScorePlayers(){
+        Score scorePlayer = scorePlayer1;
+        scorePlayer1 = scorePlayer2;
+        scorePlayer2 = scorePlayer;
     }
 }
