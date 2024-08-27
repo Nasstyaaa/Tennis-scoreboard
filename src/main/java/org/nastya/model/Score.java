@@ -1,47 +1,47 @@
 package org.nastya.model;
 
 public class Score {
-    private int point;
-    private int game;
-    private int set;
+    private int pointsNumber;
+    private int gamesNumber;
+    private int setNumber;
     private boolean hasAdvantage;
 
     public Score() {
-        point = 0;
-        game = 0;
-        set = 0;
+        pointsNumber = 0;
+        gamesNumber = 0;
+        setNumber = 0;
         hasAdvantage = false;
     }
 
-    public Score(int point, int game, int set, boolean hasAdvantage) {
-        this.point = point;
-        this.game = game;
-        this.set = set;
+    public Score(int pointsNumber, int gamesNumber, int setNumber, boolean hasAdvantage) {
+        this.pointsNumber = pointsNumber;
+        this.gamesNumber = gamesNumber;
+        this.setNumber = setNumber;
         this.hasAdvantage = hasAdvantage;
     }
 
-    public int getPoint() {
-        return point;
+    public int getPointsNumber() {
+        return pointsNumber;
     }
 
-    public int getGame() {
-        return game;
+    public int getGamesNumber() {
+        return gamesNumber;
     }
 
-    public int getSet() {
-        return set;
+    public int getSetsNumber() {
+        return setNumber;
     }
 
-    public void setPoint(int point) {
-        this.point = point;
+    public void setPointsNumber(int pointsNumber) {
+        this.pointsNumber = pointsNumber;
     }
 
-    public void setGame(int game) {
-        this.game = game;
+    public void setGamesNumber(int gamesNumber) {
+        this.gamesNumber = gamesNumber;
     }
 
-    public void setSet(int set) {
-        this.set = set;
+    public void setSetsNumber(int setNumber) {
+        this.setNumber = setNumber;
     }
 
     public boolean isHasAdvantage() {

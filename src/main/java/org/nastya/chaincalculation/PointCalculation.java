@@ -7,35 +7,34 @@ public class PointCalculation extends Calculation {
 
     @Override
     public void calculate(MatchDTO matchDTO) {
-        Score score = matchDTO.getMatchScore().getScorePlayer2();
+        Score score = matchDTO.getMatchScore().getScorePlayer1();
         Score scoreOpponent = matchDTO.getMatchScore().getScorePlayer2();
 
         if (!matchDTO.isTieBreak()) {
-            switch (score.getPoint()) {
+            switch (score.getPointsNumber()) {
                 case 0:
-                    score.setPoint(15);
+                    score.setPointsNumber(15);
                     break;
                 case 15:
-                    score.setPoint(30);
+                    score.setPointsNumber(30);
                     break;
                 case 30:
-                    if (scoreOpponent.getPoint() <= 30) {
-                        nextCalculation.calculate(matchDTO);
-                        break;
-                    }
-                    score.setPoint(40);
+                    score.setPointsNumber(40);
                     break;
                 case 40:
-                    if (!score.isHasAdvantage()) {
+                    if (scoreOpponent.getPointsNumber() <= 30 || score.isHasAdvantage()) {
+                        nextCalculation.calculate(matchDTO);
+                        break;
+                    } else if (!scoreOpponent.isHasAdvantage()) {
                         score.setHasAdvantage(true);
+                        break;
+                    } else {
                         scoreOpponent.setHasAdvantage(false);
                         break;
                     }
-                    nextCalculation.calculate(matchDTO);
-                    break;
             }
         } else {
-            score.setPoint(score.getPoint() + 1);
+            score.setPointsNumber(score.getPointsNumber() + 1);
             nextCalculation.calculate(matchDTO);
         }
     }
