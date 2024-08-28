@@ -8,7 +8,7 @@ import org.nastya.service.MatchScoreCalculationService;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class MatchScoreCalculationServiceTest {
+public class MatchScoreCalculationHandlerServiceTest {
     private MatchScoreCalculationService matchScoreCalculationService;
     private MatchDTO matchDTO;
     private Score score;

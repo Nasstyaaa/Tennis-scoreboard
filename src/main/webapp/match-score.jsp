@@ -1,14 +1,11 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="jakarta.tags.core" prefix="c" %>
 <html>
 <head>
     <title>Match score</title>
     <style>
         body {
-            background-image: url("${pageContext.request.contextPath}img/background_new_match.png");
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
+            background-color: darkslategray;
         }
 
         #winner{
@@ -44,7 +41,7 @@
         #matchScore{
             display: flex;
             flex-direction: row;
-            gap: 19%;
+            gap: 16%;
             margin-left: 10%;
         }
 
@@ -55,8 +52,8 @@
         }
 
         #tieBreakInfo {
-            margin-top: 10px;
-            font-size: 160%;
+            margin-top: 10%;
+            font-size: 200%;
         }
 
         #court {
@@ -69,7 +66,7 @@
         }
 
         button {
-            margin-top: 30%;
+            margin-top: 20%;
             font-size: 100%;
             font-style: italic;
             font-weight: bold;
@@ -77,6 +74,9 @@
             color: ghostwhite;
             border: 2px solid darkgrey;
             background: rgba(185, 128, 121, 0.97);
+            max-width: 150px;
+            white-space: normal;
+            overflow-wrap: break-word;
         }
         button:hover {
             background: rgba(94, 48, 43, 0.97);
@@ -137,7 +137,7 @@
 
                                 <div id="tieBreakInfo">
                                     <c:if test="${match.isTieBreak()}">
-                                        <span style="color: ghostwhite; font-weight: bold;">Tai-break</span>
+                                        <span style="color: rgba(120, 48, 43, 0.97); font-weight: bolder;">Tie-break</span>
                                     </c:if>
                                 </div>
                             </div>

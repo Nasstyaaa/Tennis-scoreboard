@@ -14,7 +14,7 @@ public class PlayerDAO {
             session.beginTransaction();
 
             String queryString = "FROM Player WHERE name = :name";
-            Player player = (Player) session.createQuery(queryString).setParameter("name", name).uniqueResult();
+            Player player = (Player) session.createQuery(queryString).setParameter("name", name);
 
             session.getTransaction().commit();
             return Optional.ofNullable(player);

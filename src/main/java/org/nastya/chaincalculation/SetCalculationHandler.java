@@ -3,7 +3,7 @@ package org.nastya.chaincalculation;
 import org.nastya.dto.MatchDTO;
 import org.nastya.model.Score;
 
-public class SetCalculation extends Calculation {
+public class SetCalculationHandler extends CalculationHandler {
 
     @Override
     public void calculate(MatchDTO matchDTO) {

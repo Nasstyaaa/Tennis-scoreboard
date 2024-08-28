@@ -1,13 +1,13 @@
 package org.nastya.chaincalculation;
 
 public class ChainCalculationBuilder {
-    public static Calculation buildChain() {
-        Calculation pointCalculation = new PointCalculation();
-        Calculation gameCalculation = new GameCalculation();
-        Calculation setCalculation = new SetCalculation();
+    public static CalculationHandler buildChain() {
+        CalculationHandler pointCalculationHandler = new PointCalculationHandler();
+        CalculationHandler gameCalculationHandler = new GameCalculationHandler();
+        CalculationHandler setCalculationHandler = new SetCalculationHandler();
 
-        pointCalculation.setNextCalculation(gameCalculation);
-        gameCalculation.setNextCalculation(setCalculation);
-        return pointCalculation;
+        pointCalculationHandler.setNextCalculation(gameCalculationHandler);
+        gameCalculationHandler.setNextCalculation(setCalculationHandler);
+        return pointCalculationHandler;
     }
 }

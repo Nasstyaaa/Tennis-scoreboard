@@ -3,7 +3,7 @@ package org.nastya.chaincalculation;
 import org.nastya.dto.MatchDTO;
 import org.nastya.model.Score;
 
-public class GameCalculation extends Calculation {
+public class GameCalculationHandler extends CalculationHandler {
 
     @Override
     public void calculate(MatchDTO matchDTO) {
@@ -17,10 +17,10 @@ public class GameCalculation extends Calculation {
             score.setHasAdvantage(false);
 
             if (score.getGameCount() >= 6) {
-                nextCalculation.calculate(matchDTO);
+                nextCalculationHandler.calculate(matchDTO);
             }
         } else if (score.getPointCount() >= 7) {
-            nextCalculation.calculate(matchDTO);
+            nextCalculationHandler.calculate(matchDTO);
         }
     }
 }

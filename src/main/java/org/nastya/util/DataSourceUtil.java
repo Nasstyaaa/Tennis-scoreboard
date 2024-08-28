@@ -31,7 +31,7 @@ public class DataSourceUtil implements ServletContextListener {
         session.save(new Player("Tod"));
         session.getTransaction().commit();
 
-        OngoingMatchesService ongoingMatchesService = OngoingMatchesService.getInstance();
+        OngoingMatchesService.getInstance();
     }
 
     public synchronized static Session getSession(){

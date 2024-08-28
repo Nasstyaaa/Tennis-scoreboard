@@ -30,7 +30,8 @@ public class MatchScoreServlet extends HttpServlet {
 
         request.setAttribute("uuid", uuid);
         request.setAttribute("match", currentMatch);
-        request.getRequestDispatcher("/match-score.jsp").include(request, response);
+        response.setContentType("text/html; charset=UTF-8");
+        request.getRequestDispatcher("/match-score.jsp").forward(request, response);
     }
 
 
@@ -41,7 +42,7 @@ public class MatchScoreServlet extends HttpServlet {
         MatchDTO currentMatch = ongoingMatchesService.get(uuid);
 
         int id = Integer.parseInt(request.getParameter("idPlayer"));
-        //TODO id NumberFormatException
+        //TODO id NumberFormatException страница ошибки
         if (id == 1) {
             currentMatch = matchCalculationService.compute(currentMatch);
         } else if (id == 2) {
@@ -51,14 +52,12 @@ public class MatchScoreServlet extends HttpServlet {
         }
 
         if (currentMatch.getWinner() != null) {
-            request.setAttribute("uuid", uuid);
-            request.setAttribute("match", currentMatch);
+            this.doGet(request, response);
+
             ongoingMatchesService.delete(uuid);
             Match match = new Match(currentMatch.getPlayer1(), currentMatch.getPlayer2(), currentMatch.getWinner());
             matchDAO.save(match);
         }
-        request.setAttribute("uuid", uuid);
-        request.setAttribute("match", currentMatch);
         this.doGet(request, response);
     }
 }
