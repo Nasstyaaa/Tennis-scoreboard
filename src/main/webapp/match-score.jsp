@@ -22,6 +22,22 @@
             font-size: 400%;
         }
 
+        a {
+            color: ghostwhite;
+            font-size: 150%;
+        }
+
+        #links{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            position: fixed;
+            top: 80%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
         #tableScore {
             position: fixed;
             top: 50%;
@@ -101,7 +117,7 @@
 
                             <form id="players" method="POST" action="/match-score?uuid=${uuid}">
                                 <div>PLAYER</div>
-                                <button name="idPlayer" value="1">${match.getPlayer1().getName()}</button>
+                                <button name="idPlayer" value="ds">${match.getPlayer1().getName()}</button>
                                 <button name="idPlayer" value="2">${match.getPlayer2().getName()}</button>
                             </form>
 
@@ -148,6 +164,8 @@
         </c:when>
         <c:otherwise>
             <p id="winner">WINNER: ${match.getWinner().getName()}</p>
+            <div id="links"><a href="index.jsp">Home</a>
+            <a href="completed-matches.jsp">Completed-matches</a></div>
         </c:otherwise>
     </c:choose>
     </body>

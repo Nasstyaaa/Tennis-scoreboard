@@ -49,15 +49,23 @@ public class MatchScoreServlet extends HttpServlet {
             this.doGet(request, response);
         }
 
-        int id = Integer.parseInt(request.getParameter("idPlayer"));
-        //TODO id NumberFormatException страница ошибки
-        if (id == 1) {
-            currentMatch = matchCalculationService.compute(currentMatch);
-        } else if (id == 2) {
-            currentMatch.getMatchScore().changeScorePlayers();
-            currentMatch = matchCalculationService.compute(currentMatch);
-            currentMatch.getMatchScore().changeScorePlayers();
+
+        try {
+            int id = Integer.parseInt(request.getParameter("idPlayer"));
+
+            if (id == 1) {
+                currentMatch = matchCalculationService.compute(currentMatch);
+            } else if (id == 2) {
+                currentMatch.getMatchScore().changeScorePlayers();
+                currentMatch = matchCalculationService.compute(currentMatch);
+                currentMatch.getMatchScore().changeScorePlayers();
+            }
+        }catch (NumberFormatException e) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            response.getWriter().print("Invalid id in the form field");
+            return;
         }
+
 
         if (currentMatch.getWinner() != null) {
             this.doGet(request, response);
