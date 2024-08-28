@@ -25,10 +25,18 @@ public class DataSourceUtil implements ServletContextListener {
         sessionFactory = configuration.buildSessionFactory();
         Session session = getSession();
 
+        Player player1 = new Player("Tom");
+        Player player2 = new Player("Bob");
+        Player player3 = new Player("Tod");
         session.beginTransaction();
-        session.save(new Player("Tom"));
-        session.save(new Player("Bob"));
-        session.save(new Player("Tod"));
+        session.save(player1);
+        session.save(player2);
+        session.save(player3);
+        session.getTransaction().commit();
+
+        session.beginTransaction();
+        session.save(new Match(player1, player2, player2));
+        session.save(new Match(player3, player2, player3));
         session.getTransaction().commit();
 
         OngoingMatchesService.getInstance();
