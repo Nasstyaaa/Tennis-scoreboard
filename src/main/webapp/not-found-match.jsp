@@ -35,7 +35,7 @@
   <body>
     <section>
         <h1>ERROR</h1>
-        <div>Match no. <span>${uuid}</span> not found or already played</div>
+        <div>Match <span>${uuid}</span> not found or already played</div>
         <div>try searching for it in <a href="completed-matches.jsp">completed matches</a></div>
         <div>or create a <a href="new-match.jsp">new match</a></div>
     </section>

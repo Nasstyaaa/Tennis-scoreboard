@@ -111,7 +111,7 @@
         <c:when test="${match.getWinner() == null}">
             <div>
                     <div id="tableScore">
-                        <div id="court">COURT NO. ${uuid}</div>
+                        <div id="court">MATCH ${uuid}</div>
 
                         <div id="matchScore">
 
