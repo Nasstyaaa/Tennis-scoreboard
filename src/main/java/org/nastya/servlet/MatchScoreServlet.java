@@ -27,8 +27,12 @@ public class MatchScoreServlet extends HttpServlet {
             throws ServletException, IOException {
         UUID uuid = UUID.fromString(request.getParameter("uuid"));
         MatchDTO currentMatch = ongoingMatchesService.get(uuid);
-
         request.setAttribute("uuid", uuid);
+
+        if (currentMatch == null) {
+            request.getRequestDispatcher("/not-found-match.jsp").forward(request, response);
+        }
+
         request.setAttribute("match", currentMatch);
         response.setContentType("text/html; charset=UTF-8");
         request.getRequestDispatcher("/match-score.jsp").forward(request, response);
@@ -40,6 +44,10 @@ public class MatchScoreServlet extends HttpServlet {
             throws IOException, ServletException {
         UUID uuid = UUID.fromString(request.getParameter("uuid"));
         MatchDTO currentMatch = ongoingMatchesService.get(uuid);
+
+        if (currentMatch == null) {
+            this.doGet(request, response);
+        }
 
         int id = Integer.parseInt(request.getParameter("idPlayer"));
         //TODO id NumberFormatException страница ошибки
