@@ -165,7 +165,7 @@
         <c:otherwise>
             <p id="winner">WINNER: ${match.getWinner().getName()}</p>
             <div id="links"><a href="index.jsp">Home</a>
-            <a href="completed-matches.jsp">Completed-matches</a></div>
+            <a href="/matches">Completed-matches</a></div>
         </c:otherwise>
     </c:choose>
     </body>

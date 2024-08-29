@@ -42,7 +42,7 @@
 
         #input-form {
             position: fixed;
-            top: 30%;
+            top: 23%;
             left: 25%;
             transform: translate(-50%, -50%);
             width: 20%;
@@ -53,7 +53,7 @@
 
         #form {
             position: fixed;
-            top: 30%;
+            top: 23%;
             left: 45%;
             transform: translate(-50%, -50%);
             width: 20%;
@@ -100,6 +100,17 @@
             border-radius: 0 5px 5px 0;
             cursor: pointer;
         }
+
+        a {
+            color: ghostwhite;
+            position: fixed;
+            top: 10%;
+            left: 100%;
+            transform: translate(-50%, -50%);
+            width: 20%;
+            font-style: italic;
+            font-size: 150%;
+        }
     </style>
 </head>
 <body>
@@ -134,6 +145,7 @@
         </c:forEach>
         </tbody>
     </table>
+    <a href="index.jsp">Home</a>
 </section>
 </body>
 </html>
