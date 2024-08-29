@@ -22,10 +22,8 @@ public class CompleteMatchServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         List<Match> matchList = matchDAO.findAll();
-        List<Player> playerList = playerDAO.findAll();
 
         request.setAttribute("matchList", matchList);
-        request.setAttribute("playersList", playerList);
 
         request.getRequestDispatcher("/completed-matches.jsp").forward(request, response);
     }
@@ -33,5 +31,8 @@ public class CompleteMatchServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String namePlayer = request.getParameter("namePlayer");
+
+        System.out.println(namePlayer);
     }
 }

@@ -25,6 +25,7 @@ public class MatchScoreServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
         UUID uuid = UUID.fromString(request.getParameter("uuid"));
         MatchDTO currentMatch = ongoingMatchesService.get(uuid);
         request.setAttribute("uuid", uuid);
