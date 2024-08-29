@@ -46,7 +46,7 @@
 <form id="welcome" method="GET">
     <h1>Welcome</h1>
     <button formaction="/new-match">new match</button>
-    <button formaction="/">completed matches</button>
+    <button formaction="/matches">completed matches</button>
 </form>
 </body>
 </html>
