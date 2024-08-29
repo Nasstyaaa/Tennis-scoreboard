@@ -54,7 +54,7 @@
         #form {
             position: fixed;
             top: 30%;
-            left: 40%;
+            left: 37%;
             transform: translate(-50%, -50%);
             width: 15%;
         }
@@ -90,7 +90,7 @@
         }
 
         #submit {
-            width: 60%;
+            width: 30%;
             height: 20%;
             font-size: 100%;
             padding: 10%;
@@ -111,9 +111,8 @@
         <input type="submit" value="Find" id="submit-input">
     </form>
 
-    <form action="/matches" method="POST" id="form">
-        <input type="hidden" name="namePlayer" value="allMatches">
-        <input type="submit" value="All matches" id="submit">
+    <form action="/matches" method="GET" id="form">
+        <input type="submit" value="Reset" id="submit">
     </form>
 
     <table id="players-table">
