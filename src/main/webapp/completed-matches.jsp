@@ -43,9 +43,9 @@
         #input-form {
             position: fixed;
             top: 30%;
-            left: 23%;
+            left: 25%;
             transform: translate(-50%, -50%);
-            width: 15%;
+            width: 20%;
 
             display: flex;
             align-items: center;
@@ -54,9 +54,9 @@
         #form {
             position: fixed;
             top: 30%;
-            left: 37%;
+            left: 45%;
             transform: translate(-50%, -50%);
-            width: 15%;
+            width: 20%;
         }
 
         input[type="text"] {
@@ -81,7 +81,6 @@
             background-color: rgba(120, 48, 43, 0.97);
             color: white;
             border: none;
-            border-radius: 0 5px 5px 0;
             cursor: pointer;
         }
 
@@ -106,8 +105,8 @@
 <body>
 <section id="table">
 
-    <form action="/matches" method="POST" id="input-form">
-        <input type="text" placeholder="Player's name" name="namePlayer">
+    <form action="/matches?filter_by_player_name=${namePlayer}" method="GET" id="input-form">
+        <input type="text" placeholder="Player's name" name="filter_by_player_name">
         <input type="submit" value="Find" id="submit-input">
     </form>
 

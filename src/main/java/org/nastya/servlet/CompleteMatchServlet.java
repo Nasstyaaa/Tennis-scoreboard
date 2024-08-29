@@ -21,18 +21,17 @@ public class CompleteMatchServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        List<Match> matchList = matchDAO.findAll();
+        String namePlayer = request.getParameter("filter_by_player_name");
 
-        request.setAttribute("matchList", matchList);
-
+        if (namePlayer == null || namePlayer.trim().isEmpty() || playerDAO.find(namePlayer).isEmpty()) {
+            List<Match> matchList = matchDAO.findAll();
+            request.setAttribute("matchList", matchList);
+            request.getRequestDispatcher("/completed-matches.jsp").forward(request, response);
+        }else {
+            List<Match> matches = matchDAO.findByPlayerName(namePlayer);
+            request.setAttribute("matchList", matches);
+            request.setAttribute("namePlayer", namePlayer);
+        }
         request.getRequestDispatcher("/completed-matches.jsp").forward(request, response);
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        String namePlayer = request.getParameter("namePlayer");
-
-        System.out.println(namePlayer);
     }
 }

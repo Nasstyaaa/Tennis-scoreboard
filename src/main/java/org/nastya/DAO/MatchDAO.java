@@ -32,4 +32,16 @@ public class MatchDAO {
             return matches;
         }
     }
+
+    public List<Match> findByPlayerName(String namePlayer){
+        try(Session session = DataSourceUtil.getSession()) {
+            session.beginTransaction();
+
+            String queryString = "FROM Match WHERE player1.name = :namePlayer OR player2.name = :namePlayer";
+            List<Match> matches = session.createQuery(queryString).setParameter("namePlayer", namePlayer).getResultList();
+
+            session.getTransaction().commit();
+            return matches;
+        }
+    }
 }
