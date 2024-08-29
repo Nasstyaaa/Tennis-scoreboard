@@ -40,10 +40,40 @@
             background-color: rgba(120, 48, 43, 0.97)
         }
 
+        form {
+            position: fixed;
+            top: 30%;
+            left: 30%;
+            transform: translate(-50%, -50%);
+
+            width: 30%;
+            padding: 4%;
+        }
+
+        select {
+            width: 100%;
+            height: 15%;
+            font-size: 150%;
+            padding: 2%;
+
+            font-style: italic;
+            background-color: lightgrey;
+            color: rgba(120, 48, 43, 0.97);
+        }
     </style>
 </head>
 <body>
 <section id="table">
+
+    <form action="/matches" method="POST">
+        <select>
+            <option value="allMatches">All matches</option>
+            <c:forEach items="${playersList}" var="player">
+                <option value=${player.name}>${player.name}</option>
+            </c:forEach>
+        </select>
+    </form>
+
     <table id="players-table">
         <thead>
             <tr>

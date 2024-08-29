@@ -6,7 +6,9 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.nastya.DAO.MatchDAO;
+import org.nastya.DAO.PlayerDAO;
 import org.nastya.model.Match;
+import org.nastya.model.Player;
 
 import java.io.IOException;
 import java.util.List;
@@ -14,13 +16,16 @@ import java.util.List;
 @WebServlet(urlPatterns = "/matches")
 public class CompleteMatchServlet extends HttpServlet {
     private final MatchDAO matchDAO = new MatchDAO();
+    private final PlayerDAO playerDAO = new PlayerDAO();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         List<Match> matchList = matchDAO.findAll();
+        List<Player> playerList = playerDAO.findAll();
 
         request.setAttribute("matchList", matchList);
+        request.setAttribute("playersList", playerList);
 
         request.getRequestDispatcher("/completed-matches.jsp").forward(request, response);
     }

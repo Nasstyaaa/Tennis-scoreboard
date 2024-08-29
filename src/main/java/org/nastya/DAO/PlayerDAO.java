@@ -4,6 +4,7 @@ import org.hibernate.Session;
 import org.nastya.model.Player;
 import org.nastya.util.DataSourceUtil;
 
+import java.util.List;
 import java.util.Optional;
 
 public class PlayerDAO {
@@ -18,6 +19,17 @@ public class PlayerDAO {
 
             session.getTransaction().commit();
             return Optional.ofNullable(player);
+        }
+    }
+
+    public List<Player> findAll(){
+        try (Session session = DataSourceUtil.getSession()) {
+            session.beginTransaction();
+
+            List<Player> players = session.createQuery("FROM Player ").getResultList();
+
+            session.getTransaction().commit();
+            return players;
         }
     }
 
