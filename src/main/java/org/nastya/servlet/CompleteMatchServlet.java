@@ -26,7 +26,6 @@ public class CompleteMatchServlet extends HttpServlet {
         if (namePlayer == null || namePlayer.trim().isEmpty() || playerDAO.find(namePlayer).isEmpty()) {
             List<Match> matchList = matchDAO.findAll();
             request.setAttribute("matchList", matchList);
-            request.getRequestDispatcher("/completed-matches.jsp").forward(request, response);
         }else {
             List<Match> matches = matchDAO.findByPlayerName(namePlayer);
             request.setAttribute("matchList", matches);
@@ -35,3 +34,4 @@ public class CompleteMatchServlet extends HttpServlet {
         request.getRequestDispatcher("/completed-matches.jsp").forward(request, response);
     }
 }
+//TODO в таблице поправить id
