@@ -111,17 +111,48 @@
             font-style: italic;
             font-size: 150%;
         }
+
+        .pagination {
+            position: fixed;
+            top: 90%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            justify-content: space-between;
+            width: 70%;
+        }
+
+        .pagination-button {
+            background-color: rgba(120, 48, 43, 0.97);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            font-size: 150%;
+            cursor: pointer;
+        }
+
+        .pagination-button:hover {
+            background-color: rgba(120, 48, 43, 0.85);
+        }
+
+        .pagination-info {
+            color: ghostwhite;
+            font-size: 120%;
+            margin: 0 20px;
+        }
     </style>
 </head>
 <body>
 <section id="table">
 
     <form action="/matches?filter_by_player_name=${namePlayer}" method="GET" id="input-form">
-        <input type="text" placeholder="Player's name" name="filter_by_player_name">
+        <input type="hidden" name="page" value="${page_number}">
+        <input type="text" placeholder="Player's name" name="filter_by_player_name" required>
         <input type="submit" value="Find" id="submit-input">
     </form>
 
     <form action="/matches" method="GET" id="form">
+        <input type="hidden" name="page" value="1">
         <input type="submit" value="Reset" id="submit">
     </form>
 
@@ -145,6 +176,31 @@
         </c:forEach>
         </tbody>
     </table>
+
+    <div class="pagination">
+        <form action="/matches?filter_by_player_name=${namePlayer}" method="GET" id="prevForm">
+            <input type="hidden" name="page" value="${page_number - 1}">
+
+            <c:if test="${filter_by_player_name != null && !param.filter_by_player_name.isEmpty()}">
+                <input type="hidden" name="filter_by_player_name" value="${namePlayer}">
+            </c:if>
+
+            <button form="prevForm" class="pagination-button" ${page_number == 1 ? 'disabled' : ''}>&#8592;</button>
+        </form>
+
+        <span class="pagination-info">Page ${page_number != null ? page_number : 1  } of ${total_pages}</span>
+
+        <form action="/matches?filter_by_player_name=${namePlayer}" method="GET" id="nextForm">
+            <input type="hidden" name="page" value="${page_number + 1}">
+
+            <c:if test="${filter_by_player_name != null && !param.filter_by_player_name.isEmpty()}">
+                <input type="hidden" name="filter_by_player_name" value="${namePlayer}">
+            </c:if>
+
+            <button form="nextForm" class="pagination-button" ${page_number == total_pages ? 'disabled' : ''}>&#8594;</button>
+        </form>
+    </div>
+
     <a href="index.jsp">Home</a>
 </section>
 </body>

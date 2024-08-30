@@ -1,6 +1,7 @@
 package org.nastya.DAO;
 
 
+import jakarta.persistence.Query;
 import org.hibernate.Session;
 import org.nastya.model.Match;
 import org.nastya.util.DataSourceUtil;
@@ -21,24 +22,39 @@ public class MatchDAO {
         }
     }
 
-    public List<Match> findAll(){
+    public double countAll(){
+        try(Session session = DataSourceUtil.getSession()) {
+            session.beginTransaction();
+
+            double matchesCount = session.createQuery("FROM Match").getResultCount();
+
+            session.getTransaction().commit();
+            return matchesCount;
+        }
+    }
+
+    public List<Match> findAllWithPagination(int first, int max){
 
         try(Session session = DataSourceUtil.getSession()) {
             session.beginTransaction();
 
-            List<Match> matches = session.createQuery("FROM Match").getResultList();
+            Query query = session.createQuery("FROM Match");
+            List<Match> matches = query.setFirstResult(first).setMaxResults(max).getResultList();
 
             session.getTransaction().commit();
             return matches;
         }
     }
 
-    public List<Match> findByPlayerName(String namePlayer){
+    public List<Match> findByNameWithPagination(String namePlayer, int first, int max){
         try(Session session = DataSourceUtil.getSession()) {
             session.beginTransaction();
 
-            String queryString = "FROM Match WHERE player1.name = :namePlayer OR player2.name = :namePlayer";
-            List<Match> matches = session.createQuery(queryString).setParameter("namePlayer", namePlayer).getResultList();
+            Query query = session.createQuery("""
+                 FROM Match WHERE player1.name = :namePlayer OR player2.name = :namePlayer""");
+
+            query.setParameter("namePlayer", namePlayer);
+            List<Match> matches = query.setFirstResult(first).setMaxResults(max).getResultList();
 
             session.getTransaction().commit();
             return matches;

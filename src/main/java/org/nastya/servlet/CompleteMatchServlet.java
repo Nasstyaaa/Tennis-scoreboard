@@ -8,7 +8,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.nastya.DAO.MatchDAO;
 import org.nastya.DAO.PlayerDAO;
 import org.nastya.model.Match;
-import org.nastya.model.Player;
 
 import java.io.IOException;
 import java.util.List;
@@ -22,16 +21,24 @@ public class CompleteMatchServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String namePlayer = request.getParameter("filter_by_player_name");
+        String pagenumber = request.getParameter("page");
 
+        int pageSize = 4;
+        int pageNumber = ((pagenumber != null && !pagenumber.trim().isEmpty())? Integer.parseInt(pagenumber) : 1);
+        int offset = (pageNumber - 1) * pageSize;
+        int totalPages = (int) Math.ceil(matchDAO.countAll() / pageSize);
+
+        List<Match> matchList;
         if (namePlayer == null || namePlayer.trim().isEmpty() || playerDAO.find(namePlayer).isEmpty()) {
-            List<Match> matchList = matchDAO.findAll();
-            request.setAttribute("matchList", matchList);
-        }else {
-            List<Match> matches = matchDAO.findByPlayerName(namePlayer);
-            request.setAttribute("matchList", matches);
-            request.setAttribute("namePlayer", namePlayer);
+            matchList = matchDAO.findAllWithPagination(offset, pageSize);
+        } else {
+            matchList = matchDAO.findByNameWithPagination(namePlayer, offset, pageSize);
         }
+
+        request.setAttribute("matchList", matchList);
+        request.setAttribute("page_number", pageNumber);
+        request.setAttribute("namePlayer", namePlayer);
+        request.setAttribute("total_pages", totalPages);
         request.getRequestDispatcher("/completed-matches.jsp").forward(request, response);
     }
 }
-//TODO в таблице поправить id
