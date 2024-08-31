@@ -22,18 +22,6 @@ public class PlayerDAO {
         }
     }
 
-    public List<Player> findAll(){
-        try (Session session = DataSourceUtil.getSession()) {
-            session.beginTransaction();
-
-            List<Player> players = session.createQuery("FROM Player ").getResultList();
-
-            session.getTransaction().commit();
-            return players;
-        }
-    }
-
-
     public Player save(String name) {
 
         try (Session session = DataSourceUtil.getSession()) {
