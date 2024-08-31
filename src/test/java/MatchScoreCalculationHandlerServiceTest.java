@@ -140,13 +140,13 @@ public class MatchScoreCalculationHandlerServiceTest {
         matchScoreCalculationService.compute(matchDTO);
 
         assertEquals(false, matchDTO.isTieBreak());
-        assertEquals(1, score.getSetsCount());
+        assertEquals(1, score.getSetCount());
     }
 
     @Test
     public void winnerShouldNotNull(){
-        score.setSetsCount(1);
-        scoreOpponent.setSetsCount(1);
+        score.setSetCount(1);
+        scoreOpponent.setSetCount(1);
         matchDTO.setTieBreak(true);
         score.setPointCount(7);
         scoreOpponent.setPointCount(6);
