@@ -27,6 +27,10 @@ public class MatchPaginationService {
                 totalPages = (int) Math.ceil(matchDAO.countByPlayerName(namePlayer) / pageSize);
             }
 
+            if (pageNumber > totalPages){
+                throw new NumberFormatException();
+            }
+
             return new PaginationDTO(matchList, totalPages, pageNumber);
         } catch (NumberFormatException e){
             throw new NumberFormatException();

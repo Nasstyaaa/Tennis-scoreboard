@@ -21,6 +21,7 @@ dependencies {
     implementation("jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api:3.0.0")
     implementation("org.glassfish.web:jakarta.servlet.jsp.jstl:3.0.1")
     compileOnly("org.projectlombok:lombok:1.18.34")
+    annotationProcessor("org.projectlombok:lombok:1.18.34")
     compileOnly("jakarta.servlet:jakarta.servlet-api:6.1.0")
     testImplementation("io.quarkus:quarkus-junit5:3.14.0")
 }

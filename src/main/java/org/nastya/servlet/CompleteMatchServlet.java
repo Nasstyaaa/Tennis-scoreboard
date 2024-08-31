@@ -24,7 +24,7 @@ public class CompleteMatchServlet extends HttpServlet {
         try {
             paginationDTO = matchPaginationService.getPaginatedMatches(namePlayer, page);
         } catch (NumberFormatException e) {
-            request.getRequestDispatcher("/completed-matches.jsp").forward(request, response);
+            request.getRequestDispatcher("/exception.jsp").forward(request, response);
         }
 
         request.setAttribute("matchList", paginationDTO.getMatchList());

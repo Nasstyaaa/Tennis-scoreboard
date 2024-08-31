@@ -12,7 +12,7 @@ public class SetCalculationHandler extends CalculationHandler {
 
         if (!matchDTO.isTieBreak()) {
             if (scoreOpponent.getGameCount() < 5 || score.getGameCount() == 7) {
-                score.setSetsCount(score.getSetsCount() + 1);
+                score.setSetCount(score.getSetCount() + 1);
 
                 score.setGameCount(0);
                 scoreOpponent.setGameCount(0);
@@ -24,14 +24,14 @@ public class SetCalculationHandler extends CalculationHandler {
             }
         } else {
             if (score.getPointCount() - scoreOpponent.getPointCount() >= 2) {
-                score.setSetsCount(score.getSetsCount() + 1);
+                score.setSetCount(score.getSetCount() + 1);
                 matchDTO.setTieBreak(false);
                 score.setPointCount(0);
                 scoreOpponent.setPointCount(0);
             }
         }
 
-        if (score.getSetsCount() == 2) {
+        if (score.getSetCount() == 2) {
             matchDTO.setWinner(matchDTO.getPlayer1());
         }
     }
