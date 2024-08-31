@@ -145,8 +145,8 @@
 <body>
 <section id="table">
 
-    <form action="/matches?filter_by_player_name=${namePlayer}" method="GET" id="input-form">
-        <input type="hidden" name="page" value="${page_number}">
+    <form action="/matches" method="GET" id="input-form">
+        <input type="hidden" name="page" value="1">
         <input type="text" placeholder="Player's name" name="filter_by_player_name" required>
         <input type="submit" value="Find" id="submit-input">
     </form>
@@ -166,9 +166,9 @@
         </tr>
         </thead>
         <tbody id="table-body">
-        <c:forEach items="${matchList}" var="match">
+        <c:forEach items="${matchList}" var="match" varStatus="status">
             <tr>
-                <td>${match.id}</td>
+                <td>${(page_number - 1) * 4 + status.index + 1}</td>
                 <td>${match.player1.getName()}</td>
                 <td>${match.player2.getName()}</td>
                 <td id="winner">${match.winner.getName()}</td>
@@ -178,11 +178,11 @@
     </table>
 
     <div class="pagination">
-        <form action="/matches?filter_by_player_name=${namePlayer}" method="GET" id="prevForm">
+        <form action="/matches" method="GET" id="prevForm">
             <input type="hidden" name="page" value="${page_number - 1}">
 
-            <c:if test="${filter_by_player_name != null && !param.filter_by_player_name.isEmpty()}">
-                <input type="hidden" name="filter_by_player_name" value="${namePlayer}">
+            <c:if test="${param.filter_by_player_name != null && !param.filter_by_player_name.isEmpty()}">
+                <input type="hidden" name="filter_by_player_name" value="${param.filter_by_player_name}">
             </c:if>
 
             <button form="prevForm" class="pagination-button" ${page_number == 1 ? 'disabled' : ''}>&#8592;</button>
@@ -190,11 +190,11 @@
 
         <span class="pagination-info">Page ${page_number != null ? page_number : 1  } of ${total_pages}</span>
 
-        <form action="/matches?filter_by_player_name=${namePlayer}" method="GET" id="nextForm">
+        <form action="/matches" method="GET" id="nextForm">
             <input type="hidden" name="page" value="${page_number + 1}">
 
-            <c:if test="${filter_by_player_name != null && !param.filter_by_player_name.isEmpty()}">
-                <input type="hidden" name="filter_by_player_name" value="${namePlayer}">
+            <c:if test="${param.filter_by_player_name != null && !param.filter_by_player_name.isEmpty()}">
+                <input type="hidden" name="filter_by_player_name" value="${param.filter_by_player_name}">
             </c:if>
 
             <button form="nextForm" class="pagination-button" ${page_number == total_pages ? 'disabled' : ''}>&#8594;</button>

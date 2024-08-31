@@ -12,7 +12,7 @@ public class MatchDAO {
 
     public Match save(Match match) {
 
-        try(Session session = DataSourceUtil.getSession()) {
+        try (Session session = DataSourceUtil.getSession()) {
             session.beginTransaction();
 
             session.save(match);
@@ -22,8 +22,8 @@ public class MatchDAO {
         }
     }
 
-    public double countAll(){
-        try(Session session = DataSourceUtil.getSession()) {
+    public double countAll() {
+        try (Session session = DataSourceUtil.getSession()) {
             session.beginTransaction();
 
             double matchesCount = session.createQuery("FROM Match").getResultCount();
@@ -33,9 +33,9 @@ public class MatchDAO {
         }
     }
 
-    public List<Match> findAllWithPagination(int first, int max){
+    public List<Match> findAllWithPagination(int first, int max) {
 
-        try(Session session = DataSourceUtil.getSession()) {
+        try (Session session = DataSourceUtil.getSession()) {
             session.beginTransaction();
 
             Query query = session.createQuery("FROM Match");
@@ -46,18 +46,33 @@ public class MatchDAO {
         }
     }
 
-    public List<Match> findByNameWithPagination(String namePlayer, int first, int max){
-        try(Session session = DataSourceUtil.getSession()) {
+    public List<Match> findByPlayerNameWithPagination(String namePlayer, int first, int max) {
+        try (Session session = DataSourceUtil.getSession()) {
             session.beginTransaction();
 
             Query query = session.createQuery("""
-                 FROM Match WHERE player1.name = :namePlayer OR player2.name = :namePlayer""");
+                    FROM Match WHERE player1.name = :namePlayer OR player2.name = :namePlayer""");
 
             query.setParameter("namePlayer", namePlayer);
             List<Match> matches = query.setFirstResult(first).setMaxResults(max).getResultList();
 
             session.getTransaction().commit();
             return matches;
+        }
+    }
+
+    public double countByPlayerName(String namePlayer) {
+        try (Session session = DataSourceUtil.getSession()) {
+            session.beginTransaction();
+
+            double matchesCount = session.createQuery("""
+                            
+                            FROM Match WHERE player1.name = :namePlayer OR player2.name = :namePlayer""")
+                    .setParameter("namePlayer", namePlayer)
+                    .getResultCount();
+
+            session.getTransaction().commit();
+            return matchesCount;
         }
     }
 }

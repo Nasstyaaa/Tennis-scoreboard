@@ -35,6 +35,8 @@ public class DBInitializerUtil {
         session.save(new Match(player2, player4, player2));
         session.save(new Match(player2, player5, player4));
         session.save(new Match(player1, player5, player1));
+        session.save(new Match(player3, player1, player3));
+        session.save(new Match(player4, player1, player1));
         session.getTransaction().commit();
     }
 }

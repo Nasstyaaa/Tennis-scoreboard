@@ -26,18 +26,19 @@ public class CompleteMatchServlet extends HttpServlet {
         int pageSize = 4;
         int pageNumber = ((pagenumber != null && !pagenumber.trim().isEmpty())? Integer.parseInt(pagenumber) : 1);
         int offset = (pageNumber - 1) * pageSize;
-        int totalPages = (int) Math.ceil(matchDAO.countAll() / pageSize);
+        int totalPages;
 
         List<Match> matchList;
         if (namePlayer == null || namePlayer.trim().isEmpty() || playerDAO.find(namePlayer).isEmpty()) {
             matchList = matchDAO.findAllWithPagination(offset, pageSize);
+            totalPages = (int) Math.ceil(matchDAO.countAll() / pageSize);
         } else {
-            matchList = matchDAO.findByNameWithPagination(namePlayer, offset, pageSize);
+            matchList = matchDAO.findByPlayerNameWithPagination(namePlayer, offset, pageSize);
+            totalPages = (int) Math.ceil(matchDAO.countByPlayerName(namePlayer) / pageSize);
         }
 
         request.setAttribute("matchList", matchList);
         request.setAttribute("page_number", pageNumber);
-        request.setAttribute("namePlayer", namePlayer);
         request.setAttribute("total_pages", totalPages);
         request.getRequestDispatcher("/completed-matches.jsp").forward(request, response);
     }
