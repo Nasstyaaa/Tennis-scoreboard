@@ -20,7 +20,12 @@ public class CompleteMatchServlet extends HttpServlet {
         String namePlayer = request.getParameter("filter_by_player_name");
         String page = request.getParameter("page");
 
-        PaginationDTO paginationDTO = matchPaginationService.getPaginatedMatches(namePlayer, page);
+        PaginationDTO paginationDTO = null;
+        try {
+            paginationDTO = matchPaginationService.getPaginatedMatches(namePlayer, page);
+        } catch (NumberFormatException e) {
+            request.getRequestDispatcher("/completed-matches.jsp").forward(request, response);
+        }
 
         request.setAttribute("matchList", paginationDTO.getMatchList());
         request.setAttribute("page_number", paginationDTO.getPageNumber());
