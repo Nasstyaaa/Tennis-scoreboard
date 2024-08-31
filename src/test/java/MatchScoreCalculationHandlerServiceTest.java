@@ -90,7 +90,7 @@ public class MatchScoreCalculationHandlerServiceTest {
         matchScoreCalculationService.compute(matchDTO);
         assertEquals(0, score.getGameCount());
         assertEquals(0, scoreOpponent.getGameCount());
-        assertEquals(1, score.getSetsCount());
+        assertEquals(1, score.getSetCount());
     }
 
     @Test
@@ -104,7 +104,7 @@ public class MatchScoreCalculationHandlerServiceTest {
         matchScoreCalculationService.compute(matchDTO);
         assertEquals(0, score.getGameCount());
         assertEquals(0, scoreOpponent.getGameCount());
-        assertEquals(1, score.getSetsCount());
+        assertEquals(1, score.getSetCount());
     }
 
     @Test
