@@ -145,13 +145,13 @@
 <body>
 <section id="table">
 
-    <form action="/matches" method="GET" id="input-form">
+    <form action="${pageContext.request.contextPath}/matches" method="GET" id="input-form">
         <input type="hidden" name="page" value="1">
         <input type="text" placeholder="Player's name" name="filter_by_player_name" required>
         <input type="submit" value="Find" id="submit-input">
     </form>
 
-    <form action="/matches" method="GET" id="form">
+    <form action="${pageContext.request.contextPath}/matches" method="GET" id="form">
         <input type="hidden" name="page" value="1">
         <input type="submit" value="Reset" id="submit">
     </form>
@@ -178,7 +178,7 @@
     </table>
 
     <div class="pagination">
-        <form action="/matches" method="GET" id="prevForm">
+        <form action="${pageContext.request.contextPath}/matches" method="GET" id="prevForm">
             <input type="hidden" name="page" value="${page_number - 1}">
 
             <c:if test="${param.filter_by_player_name != null && !param.filter_by_player_name.isEmpty()}">
@@ -190,7 +190,7 @@
 
         <span class="pagination-info">Page ${page_number != null ? page_number : 1  } of ${total_pages}</span>
 
-        <form action="/matches" method="GET" id="nextForm">
+        <form action="${pageContext.request.contextPath}/matches" method="GET" id="nextForm">
             <input type="hidden" name="page" value="${page_number + 1}">
 
             <c:if test="${param.filter_by_player_name != null && !param.filter_by_player_name.isEmpty()}">

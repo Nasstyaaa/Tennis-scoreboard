@@ -47,6 +47,8 @@ public class NewMatchServlet extends HttpServlet {
                 .orElseGet(()-> playerDAO.save(namePlayer2));
 
         UUID matchId = ongoingMatchesService.add(player1, player2);
-        response.sendRedirect("/match-score?uuid=" + matchId);
+
+        String contextPath = request.getContextPath();
+        response.sendRedirect(contextPath + "/match-score?uuid=" + matchId);
     }
 }

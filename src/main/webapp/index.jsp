@@ -13,7 +13,7 @@
         }
 
         body {
-            background-image: url("${pageContext.request.contextPath}img/background_index.jpg");
+            background-image: url("${pageContext.request.contextPath}/img/background_index.jpg");
             background-size: cover;
             background-repeat: no-repeat;
             background-attachment: fixed;
@@ -45,8 +45,8 @@
 <body>
 <form id="welcome" method="GET">
     <h1>Welcome</h1>
-    <button formaction="/new-match">new match</button>
-    <button formaction="/matches">completed matches</button>
+    <button formaction="${pageContext.request.contextPath}/new-match">new match</button>
+    <button formaction="${pageContext.request.contextPath}/matches">completed matches</button>
 </form>
 </body>
 </html>

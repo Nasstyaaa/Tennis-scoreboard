@@ -36,8 +36,8 @@
     <section>
         <h1>ERROR</h1>
         <div>Match <span>${uuid}</span> not found or already played</div>
-        <div>try searching for it in <a href="/matches">completed matches</a></div>
-        <div>or create a <a href="/new-match">new match</a></div>
+        <div>try searching for it in <a href="${pageContext.request.contextPath}/matches">completed matches</a></div>
+        <div>or create a <a href="${pageContext.request.contextPath}/new-match">new match</a></div>
     </section>
   </body>
 </html>

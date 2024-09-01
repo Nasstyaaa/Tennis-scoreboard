@@ -4,7 +4,7 @@
     <title>New match</title>
     <style>
         body {
-            background-image: url("${pageContext.request.contextPath}img/background_new_match.png");
+            background-image: url("${pageContext.request.contextPath}/img/background_new_match.ipg");
             background-size: cover;
             background-repeat: no-repeat;
             background-attachment: fixed;
@@ -54,7 +54,7 @@
                 <%= request.getAttribute("errorMessage") %>
             </div>
         <% } %>
-        <form method="POST" action="/new-match">
+        <form method="POST" action="${pageContext.request.contextPath}/new-match">
             <p id="player1"><input type="text" placeholder="Player 1 name" name="player1"><br></p>
             <p id="player2"><input type="text" placeholder="Player 2 name" name="player2"></p>
             <p id="play"><input type="submit" value="Start the game"></p>

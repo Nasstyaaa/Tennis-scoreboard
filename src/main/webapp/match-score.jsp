@@ -115,7 +115,7 @@
 
                         <div id="matchScore">
 
-                            <form id="players" method="POST" action="/match-score?uuid=${uuid}">
+                            <form id="players" method="POST" action="${pageContext.request.contextPath}/match-score?uuid=${uuid}">
                                 <div>PLAYER</div>
                                 <button name="idPlayer" value="1">${match.getPlayer1().getName()}</button>
                                 <button name="idPlayer" value="2">${match.getPlayer2().getName()}</button>
@@ -123,8 +123,8 @@
 
                             <div id="sets">
                                 <div>SETS</div>
-                                <p>${match.getMatchScore().getScorePlayer1().getSetsCount()}</p>
-                                <p>${match.getMatchScore().getScorePlayer2().getSetsCount()}</p></div>
+                                <p>${match.getMatchScore().getScorePlayer1().getSetCount()}</p>
+                                <p>${match.getMatchScore().getScorePlayer2().getSetCount()}</p></div>
 
                             <div id="games">
                                 <div>GAMES</div>
@@ -165,7 +165,7 @@
         <c:otherwise>
             <p id="winner">WINNER: ${match.getWinner().getName()}</p>
             <div id="links"><a href="index.jsp">Home</a>
-            <a href="/matches">Completed-matches</a></div>
+            <a href="${pageContext.request.contextPath}/matches">Completed-matches</a></div>
         </c:otherwise>
     </c:choose>
     </body>
