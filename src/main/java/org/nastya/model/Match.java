@@ -8,7 +8,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "match")
+@Table(name = "match",
+        indexes=@Index(columnList="name, player_1, player_2, winner"))
 @Getter
 @Setter
 @NoArgsConstructor
@@ -16,7 +17,6 @@ public class Match {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Integer id;
 
     @ManyToOne

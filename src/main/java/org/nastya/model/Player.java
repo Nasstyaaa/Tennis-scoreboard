@@ -6,17 +6,17 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "player")
+@Table(name = "player",
+        indexes=@Index(columnList="name"),
+        uniqueConstraints = {@UniqueConstraint(columnNames = {"name"})})
 @Getter
 @Setter
 @NoArgsConstructor
 public class Player {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Integer id;
-
-    @Column(name = "name", unique = true)
     private String name;
 
 
