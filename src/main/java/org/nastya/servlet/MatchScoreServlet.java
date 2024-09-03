@@ -74,7 +74,7 @@ public class MatchScoreServlet extends HttpServlet {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             response.getWriter().print("Invalid id in the form field");
         } catch (IllegalArgumentException e) {
-            request.getRequestDispatcher("/exception.jsp");
+            request.getRequestDispatcher("/exception.jsp").forward(request, response);
         }
     }
 }
