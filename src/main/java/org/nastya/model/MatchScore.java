@@ -12,7 +12,7 @@ public class MatchScore {
         scorePlayer2 = new Score();
     }
 
-    public void changeScorePlayers(){
+    public void swapScores(){
         Score scorePlayer = scorePlayer1;
         scorePlayer1 = scorePlayer2;
         scorePlayer2 = scorePlayer;

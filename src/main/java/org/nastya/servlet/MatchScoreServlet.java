@@ -56,9 +56,9 @@ public class MatchScoreServlet extends HttpServlet {
             if (id == 1) {
                 currentMatch = matchCalculationService.compute(currentMatch);
             } else if (id == 2) {
-                currentMatch.getMatchScore().changeScorePlayers();
+                currentMatch.getMatchScore().swapScores();
                 currentMatch = matchCalculationService.compute(currentMatch);
-                currentMatch.getMatchScore().changeScorePlayers();
+                currentMatch.getMatchScore().swapScores();
             }
 
             if (currentMatch.getWinner() != null) {
