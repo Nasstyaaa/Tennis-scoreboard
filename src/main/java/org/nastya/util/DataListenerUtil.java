@@ -11,7 +11,7 @@ import org.nastya.model.Match;
 import org.nastya.model.Player;
 
 @WebListener
-public class DataSourceUtil implements ServletContextListener {
+public class DataListenerUtil implements ServletContextListener {
     public static SessionFactory sessionFactory;
 
     @Override
@@ -21,7 +21,7 @@ public class DataSourceUtil implements ServletContextListener {
                 .addAnnotatedClass(Match.class);
 
         sessionFactory = configuration.buildSessionFactory();
-        DBInitializerUtil.save(sessionFactory);
+        DBInitializerUtil.init();
     }
 
     public synchronized static Session getSession(){

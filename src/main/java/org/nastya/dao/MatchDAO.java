@@ -4,7 +4,7 @@ package org.nastya.dao;
 import jakarta.persistence.Query;
 import org.hibernate.Session;
 import org.nastya.model.Match;
-import org.nastya.util.DataSourceUtil;
+import org.nastya.util.DataListenerUtil;
 
 import java.util.List;
 
@@ -12,7 +12,7 @@ public class MatchDAO {
 
     public Match save(Match match) {
 
-        try (Session session = DataSourceUtil.getSession()) {
+        try (Session session = DataListenerUtil.getSession()) {
             session.beginTransaction();
 
             session.persist(match);
@@ -23,7 +23,7 @@ public class MatchDAO {
     }
 
     public int countAll() {
-        try (Session session = DataSourceUtil.getSession()) {
+        try (Session session = DataListenerUtil.getSession()) {
             session.beginTransaction();
 
             int matchesCount = (int) session.createQuery("FROM Match").getResultCount();
@@ -35,7 +35,7 @@ public class MatchDAO {
 
     public List<Match> findAllWithPagination(int offset, int max) {
 
-        try (Session session = DataSourceUtil.getSession()) {
+        try (Session session = DataListenerUtil.getSession()) {
             session.beginTransaction();
 
             Query query = session.createQuery("FROM Match");
@@ -47,7 +47,7 @@ public class MatchDAO {
     }
 
     public List<Match> findByPlayerNameWithPagination(String namePlayer, int offset, int max) {
-        try (Session session = DataSourceUtil.getSession()) {
+        try (Session session = DataListenerUtil.getSession()) {
             session.beginTransaction();
 
             Query query = session.createQuery("""
@@ -62,7 +62,7 @@ public class MatchDAO {
     }
 
     public int countByPlayerName(String namePlayer) {
-        try (Session session = DataSourceUtil.getSession()) {
+        try (Session session = DataListenerUtil.getSession()) {
             session.beginTransaction();
 
             int matchesCount = (int) session.createQuery("""

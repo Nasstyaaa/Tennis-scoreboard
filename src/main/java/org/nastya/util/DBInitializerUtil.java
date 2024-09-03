@@ -1,14 +1,13 @@
 package org.nastya.util;
 
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.nastya.model.Match;
 import org.nastya.model.Player;
 
 public class DBInitializerUtil {
 
-    public static void save(SessionFactory sessionFactory) {
-        Session session = sessionFactory.openSession();
+    public static void init() {
+        Session session = DataListenerUtil.getSession();
 
         Player player1 = new Player("Miomir Kecmanovic");
         Player player2 = new Player("Lorenzo Musetti");
