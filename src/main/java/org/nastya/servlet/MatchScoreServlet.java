@@ -5,7 +5,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.nastya.DAO.MatchDAO;
+import org.nastya.dao.MatchDAO;
 import org.nastya.dto.MatchDTO;
 import org.nastya.model.Match;
 import org.nastya.service.MatchScoreCalculationService;

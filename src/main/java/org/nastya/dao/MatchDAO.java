@@ -1,4 +1,4 @@
-package org.nastya.DAO;
+package org.nastya.dao;
 
 
 import jakarta.persistence.Query;

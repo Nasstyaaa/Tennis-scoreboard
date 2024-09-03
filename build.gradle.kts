@@ -3,7 +3,7 @@ plugins {
     id("war")
 }
 
-group = "org.example"
+group = "org.nastya"
 version = "1.0-SNAPSHOT"
 
 repositories {

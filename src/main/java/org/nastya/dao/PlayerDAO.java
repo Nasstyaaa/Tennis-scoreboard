@@ -1,10 +1,9 @@
-package org.nastya.DAO;
+package org.nastya.dao;
 
 import org.hibernate.Session;
 import org.nastya.model.Player;
 import org.nastya.util.DataSourceUtil;
 
-import java.util.List;
 import java.util.Optional;
 
 public class PlayerDAO {

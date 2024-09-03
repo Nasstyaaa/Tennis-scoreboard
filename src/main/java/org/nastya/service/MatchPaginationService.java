@@ -1,7 +1,7 @@
 package org.nastya.service;
 
-import org.nastya.DAO.MatchDAO;
-import org.nastya.DAO.PlayerDAO;
+import org.nastya.dao.MatchDAO;
+import org.nastya.dao.PlayerDAO;
 import org.nastya.dto.PaginationDTO;
 import org.nastya.model.Match;
 

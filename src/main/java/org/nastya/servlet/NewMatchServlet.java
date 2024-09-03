@@ -6,7 +6,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.nastya.DAO.PlayerDAO;
+import org.nastya.dao.PlayerDAO;
 import org.nastya.model.Player;
 import org.nastya.service.OngoingMatchesService;
 
