@@ -13,10 +13,10 @@ public class MatchScoreCalculationHandlerServiceTest {
     private MatchDTO matchDTO;
     private Score score;
     private Score scoreOpponent;
-    Player player1;
+    private Player player1;
 
     @BeforeEach
-    public void createMatchScore(){
+    public void createMatchScore() {
         matchScoreCalculationService = new MatchScoreCalculationService();
         player1 = new Player();
         matchDTO = new MatchDTO(player1, new Player(), new MatchScore());
@@ -25,62 +25,73 @@ public class MatchScoreCalculationHandlerServiceTest {
     }
 
     @Test
-    public void pointsNumberShouldIncrease(){
+    public void pointsNumberShouldIncrease() {
         score.setPointCount(15);
 
         matchScoreCalculationService.compute(matchDTO);
+
         assertEquals(30, score.getPointCount());
     }
 
     @Test
-    public void playerShouldGetAdvantage(){
+    public void playerShouldGetAdvantage() {
         score.setPointCount(40);
         scoreOpponent.setPointCount(40);
 
         matchScoreCalculationService.compute(matchDTO);
-        assertEquals(true, score.isHasAdvantage());
+
+        assertTrue(score.isHasAdvantage());
     }
 
     @Test
-    public void gamesNumberShouldIncreaseAfterGetAdvantage(){
+    public void gamesNumberShouldIncreaseAfterGetAdvantage() {
         score.setPointCount(40);
         score.setHasAdvantage(true);
         scoreOpponent.setPointCount(40);
 
         matchScoreCalculationService.compute(matchDTO);
-        assertEquals(1, score.getGameCount());
-        assertEquals(0, score.getPointCount());
-        assertEquals(0, scoreOpponent.getPointCount());
-        assertEquals(false, score.isHasAdvantage());
+
+        assertAll(
+                () -> assertEquals(1, score.getGameCount()),
+                () -> assertEquals(0, score.getPointCount()),
+                () -> assertEquals(0, scoreOpponent.getPointCount()),
+                () -> assertFalse(score.isHasAdvantage())
+        );
     }
 
     @Test
-    public void gamesNumberShouldIncreaseIfOpponentsLess(){
+    public void gamesNumberShouldIncreaseIfOpponentsLess() {
         score.setPointCount(40);
         scoreOpponent.setPointCount(30);
 
         matchScoreCalculationService.compute(matchDTO);
-        assertEquals(1, score.getGameCount());
-        assertEquals(0, score.getPointCount());
-        assertEquals(0, scoreOpponent.getPointCount());
+
+        assertAll(
+                () -> assertEquals(1, score.getGameCount()),
+                () -> assertEquals(0, score.getPointCount()),
+                () -> assertEquals(0, scoreOpponent.getPointCount())
+        );
     }
 
     @Test
-    public void opponentPlayerShouldLoseAdvantage(){
+    public void opponentPlayerShouldLoseAdvantage() {
         score.setPointCount(40);
         scoreOpponent.setPointCount(40);
         scoreOpponent.setHasAdvantage(true);
 
         matchScoreCalculationService.compute(matchDTO);
-        assertEquals(0, score.getGameCount());
-        assertEquals(40, score.getPointCount());
-        assertEquals(40, scoreOpponent.getPointCount());
-        assertEquals(false, scoreOpponent.isHasAdvantage());
+
+        assertAll(
+                () -> assertEquals(0, score.getGameCount()),
+                () -> assertEquals(40, score.getPointCount()),
+                () -> assertEquals(40, scoreOpponent.getPointCount()),
+                () -> assertFalse(scoreOpponent.isHasAdvantage())
+        );
     }
 
 
     @Test
-    public void setsNumberShouldIncreaseIfOpponentsLess(){
+    public void setsNumberShouldIncreaseIfOpponentsLess() {
         score.setPointCount(40);
         score.setHasAdvantage(true);
         scoreOpponent.setPointCount(40);
@@ -88,13 +99,16 @@ public class MatchScoreCalculationHandlerServiceTest {
         scoreOpponent.setGameCount(4);
 
         matchScoreCalculationService.compute(matchDTO);
-        assertEquals(0, score.getGameCount());
-        assertEquals(0, scoreOpponent.getGameCount());
-        assertEquals(1, score.getSetCount());
+
+        assertAll(
+                () -> assertEquals(0, score.getGameCount()),
+                () -> assertEquals(0, scoreOpponent.getGameCount()),
+                () -> assertEquals(1, score.getSetCount())
+        );
     }
 
     @Test
-    public void setsNumberShouldIncreaseIfOpponentsLessThanTwo(){
+    public void setsNumberShouldIncreaseIfOpponentsLessThanTwo() {
         score.setPointCount(40);
         score.setHasAdvantage(true);
         scoreOpponent.setPointCount(40);
@@ -102,13 +116,16 @@ public class MatchScoreCalculationHandlerServiceTest {
         scoreOpponent.setGameCount(5);
 
         matchScoreCalculationService.compute(matchDTO);
-        assertEquals(0, score.getGameCount());
-        assertEquals(0, scoreOpponent.getGameCount());
-        assertEquals(1, score.getSetCount());
+
+        assertAll(
+                () -> assertEquals(0, score.getGameCount()),
+                () -> assertEquals(0, scoreOpponent.getGameCount()),
+                () -> assertEquals(1, score.getSetCount())
+        );
     }
 
     @Test
-    public void isTieBreakShouldTrue(){
+    public void isTieBreakShouldTrue() {
         score.setPointCount(40);
         score.setHasAdvantage(true);
         scoreOpponent.setPointCount(40);
@@ -116,40 +133,44 @@ public class MatchScoreCalculationHandlerServiceTest {
         scoreOpponent.setGameCount(6);
 
         matchScoreCalculationService.compute(matchDTO);
-        assertEquals(true, matchDTO.isTieBreak());
+
+        assertTrue(matchDTO.isTieBreak());
     }
 
     @Test
-    public void pointsNumberShouldIncreaseInTieBreak(){
+    public void pointsNumberShouldIncreaseInTieBreak() {
         score.setPointCount(40);
         score.setHasAdvantage(true);
         scoreOpponent.setPointCount(40);
         score.setGameCount(5);
         scoreOpponent.setGameCount(6);
-        matchScoreCalculationService.compute(matchDTO);
 
         matchScoreCalculationService.compute(matchDTO);
+        matchScoreCalculationService.compute(matchDTO);
+
         assertEquals(1, score.getPointCount());
     }
 
     @Test
-    public void setsNumberShouldIncreaseInTieBreak(){
+    public void setsNumberShouldIncreaseInTieBreak() {
         matchDTO.setTieBreak(true);
         score.setPointCount(7);
         scoreOpponent.setPointCount(6);
+
         matchScoreCalculationService.compute(matchDTO);
 
-        assertEquals(false, matchDTO.isTieBreak());
+        assertFalse(matchDTO.isTieBreak());
         assertEquals(1, score.getSetCount());
     }
 
     @Test
-    public void winnerShouldNotNull(){
+    public void winnerShouldNotNull() {
         score.setSetCount(1);
         scoreOpponent.setSetCount(1);
         matchDTO.setTieBreak(true);
         score.setPointCount(7);
         scoreOpponent.setPointCount(6);
+
         matchScoreCalculationService.compute(matchDTO);
 
         assertEquals(player1, matchDTO.getWinner());
