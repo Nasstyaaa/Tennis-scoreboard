@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public class PlayerDAO {
 
-    public Optional<Player> find(String name) {
+    public Optional<Player> findByPlayerName(String name) {
 
         try (Session session = DataSourceUtil.getSession()) {
             session.beginTransaction();
@@ -21,13 +21,12 @@ public class PlayerDAO {
         }
     }
 
-    public Player save(String name) {
+    public Player save(Player player) {
 
         try (Session session = DataSourceUtil.getSession()) {
             session.beginTransaction();
 
-            Player player = new Player(name);
-            session.save(player);
+            session.persist(player);
 
             session.getTransaction().commit();
             return player;

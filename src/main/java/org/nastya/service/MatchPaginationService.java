@@ -19,7 +19,7 @@ public class MatchPaginationService {
             int totalPages;
 
             List<Match> matchList;
-            if (namePlayer == null || namePlayer.trim().isEmpty() || playerDAO.find(namePlayer).isEmpty()) {
+            if (namePlayer == null || namePlayer.trim().isEmpty() || playerDAO.findByPlayerName(namePlayer).isEmpty()) {
                 matchList = matchDAO.findAllWithPagination(offset, pageSize);
                 totalPages = (int) Math.ceil(matchDAO.countAll() / pageSize);
             } else {

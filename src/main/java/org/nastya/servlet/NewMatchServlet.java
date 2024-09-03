@@ -40,11 +40,11 @@ public class NewMatchServlet extends HttpServlet {
             return;
         }
 
-        Player player1 = playerDAO.find(namePlayer1)
-                .orElseGet(()->playerDAO.save(namePlayer1));
+        Player player1 = playerDAO.findByPlayerName(namePlayer1)
+                .orElseGet(()->playerDAO.save(new Player(namePlayer1)));
 
-        Player player2 =  playerDAO.find(namePlayer2)
-                .orElseGet(()-> playerDAO.save(namePlayer2));
+        Player player2 =  playerDAO.findByPlayerName(namePlayer2)
+                .orElseGet(()-> playerDAO.save(new Player(namePlayer2)));
 
         UUID matchId = ongoingMatchesService.add(player1, player2);
 
