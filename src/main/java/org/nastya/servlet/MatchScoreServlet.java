@@ -43,15 +43,14 @@ public class MatchScoreServlet extends HttpServlet {
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
-        UUID uuid = UUID.fromString(request.getParameter("uuid"));
-        MatchDTO currentMatch = ongoingMatchesService.get(uuid);
-
-        if (currentMatch == null) {
-            this.doGet(request, response);
-        }
-
-
         try {
+            UUID uuid = UUID.fromString(request.getParameter("uuid"));
+            MatchDTO currentMatch = ongoingMatchesService.get(uuid);
+
+            if (currentMatch == null) {
+                this.doGet(request, response);
+            }
+
             int id = Integer.parseInt(request.getParameter("idPlayer"));
 
             if (id == 1) {
@@ -61,20 +60,21 @@ public class MatchScoreServlet extends HttpServlet {
                 currentMatch = matchCalculationService.compute(currentMatch);
                 currentMatch.getMatchScore().changeScorePlayers();
             }
-        }catch (NumberFormatException e) {
-            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            response.getWriter().print("Invalid id in the form field");
-            return;
-        }
 
+            if (currentMatch.getWinner() != null) {
+                this.doGet(request, response);
 
-        if (currentMatch.getWinner() != null) {
+                ongoingMatchesService.delete(uuid);
+                Match match = new Match(currentMatch.getPlayer1(), currentMatch.getPlayer2(), currentMatch.getWinner());
+                matchDAO.save(match);
+            }
             this.doGet(request, response);
 
-            ongoingMatchesService.delete(uuid);
-            Match match = new Match(currentMatch.getPlayer1(), currentMatch.getPlayer2(), currentMatch.getWinner());
-            matchDAO.save(match);
+        } catch (NumberFormatException e) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            response.getWriter().print("Invalid id in the form field");
+        } catch (IllegalArgumentException e) {
+            request.getRequestDispatcher("/exception.jsp");
         }
-        this.doGet(request, response);
     }
 }

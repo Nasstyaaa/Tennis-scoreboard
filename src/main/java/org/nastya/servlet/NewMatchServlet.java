@@ -34,7 +34,7 @@ public class NewMatchServlet extends HttpServlet {
         String namePlayer1 = request.getParameter("player1");
         String namePlayer2 = request.getParameter("player2");
 
-        if(namePlayer1.trim().isEmpty() || namePlayer2.trim().isEmpty() || namePlayer1.equals(namePlayer2)){
+        if(namePlayer1.isBlank() || namePlayer2.isBlank() || namePlayer1.equals(namePlayer2)){
             request.setAttribute("errorMessage", "Incorrect data has been entered");
             request.getRequestDispatcher("/new-match.jsp").forward(request, response);
             return;
