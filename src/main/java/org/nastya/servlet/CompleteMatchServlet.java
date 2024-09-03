@@ -5,7 +5,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.nastya.dto.PaginationDTO;
+import org.nastya.dto.PaginationRequestDTO;
+import org.nastya.dto.PaginationResponseDTO;
 import org.nastya.service.MatchPaginationService;
 
 import java.io.IOException;
@@ -20,16 +21,17 @@ public class CompleteMatchServlet extends HttpServlet {
         String namePlayer = request.getParameter("filter_by_player_name");
         String page = request.getParameter("page");
 
-        PaginationDTO paginationDTO = null;
+        PaginationResponseDTO paginationResponseDTO = null;
         try {
-            paginationDTO = matchPaginationService.getPaginatedMatches(namePlayer, page);
+            PaginationRequestDTO paginationRequestDTO = new PaginationRequestDTO(namePlayer, page);
+            paginationResponseDTO = matchPaginationService.getPaginatedMatches(paginationRequestDTO);
         } catch (NumberFormatException e) {
             request.getRequestDispatcher("/exception.jsp").forward(request, response);
         }
 
-        request.setAttribute("matchList", paginationDTO.getMatchList());
-        request.setAttribute("page_number", paginationDTO.getPageNumber());
-        request.setAttribute("total_pages", paginationDTO.getTotalPages());
+        request.setAttribute("matchList", paginationResponseDTO.getMatchList());
+        request.setAttribute("page_number", paginationResponseDTO.getPageNumber());
+        request.setAttribute("total_pages", paginationResponseDTO.getTotalPages());
         request.getRequestDispatcher("/completed-matches.jsp").forward(request, response);
     }
 }

@@ -9,7 +9,7 @@ import java.util.List;
 
 @Getter
 @AllArgsConstructor
-public class PaginationDTO {
+public class PaginationResponseDTO {
     private List<Match> matchList;
     private int totalPages;
     private int pageNumber;
