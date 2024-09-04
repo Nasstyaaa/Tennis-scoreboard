@@ -7,6 +7,6 @@ import lombok.Setter;
 @Getter
 @AllArgsConstructor
 public class PaginationRequestDTO {
-    String playerName;
-    String page;
+    private String playerName;
+    private int page;
 }

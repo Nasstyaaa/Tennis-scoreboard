@@ -23,11 +23,13 @@ public class CompleteMatchServlet extends HttpServlet {
 
         PaginationResponseDTO paginationResponseDTO = null;
         try {
-            PaginationRequestDTO paginationRequestDTO = new PaginationRequestDTO(namePlayer, page);
+            int pageNumber = ((page != null && !page.isBlank()) ? Integer.parseInt(page) : 1);
+            PaginationRequestDTO paginationRequestDTO = new PaginationRequestDTO(namePlayer, pageNumber);
             paginationResponseDTO = matchPaginationService.getPaginatedMatches(paginationRequestDTO);
-        } catch (NumberFormatException e) {
-            request.getRequestDispatcher("/exception.jsp").forward(request, response);
-        }
+
+            } catch (IllegalArgumentException e) {
+                request.getRequestDispatcher("/exception.jsp").forward(request, response);
+            }
 
         request.setAttribute("matchList", paginationResponseDTO.getMatchList());
         request.setAttribute("page_number", paginationResponseDTO.getPageNumber());

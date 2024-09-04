@@ -14,14 +14,13 @@ public class MatchPaginationService {
 
     public PaginationResponseDTO getPaginatedMatches(PaginationRequestDTO paginationRequestDTO) {
         String playerName = paginationRequestDTO.getPlayerName();
-        String page = paginationRequestDTO.getPage();
+        int pageNumber = paginationRequestDTO.getPage();
         int pageSize = 4;
-        int pageNumber = ((page != null && !page.trim().isEmpty()) ? Integer.parseInt(page) : 1);
         int offset = (pageNumber - 1) * pageSize;
         int totalPages;
 
         List<Match> matchList;
-        if (playerName == null || playerName.trim().isEmpty() || playerDAO.findByPlayerName(playerName).isEmpty()) {
+        if (playerName == null || playerName.isBlank() || playerDAO.findByPlayerName(playerName).isEmpty()) {
             matchList = matchDAO.findAllWithPagination(offset, pageSize);
             totalPages = (int) Math.ceil((double) matchDAO.countAll() / pageSize);
         } else {
@@ -30,7 +29,7 @@ public class MatchPaginationService {
         }
 
         if (pageNumber > totalPages) {
-            throw new NumberFormatException(); //TODO exception
+            throw new IllegalArgumentException();
         }
         return new PaginationResponseDTO(matchList, totalPages, pageNumber);
     }

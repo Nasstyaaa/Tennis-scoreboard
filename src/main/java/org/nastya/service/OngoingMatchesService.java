@@ -20,7 +20,7 @@ public class OngoingMatchesService {
         return instance;
     }
 
-    public UUID add(Player player1, Player player2){
+    public UUID addNewMatch(Player player1, Player player2){
         MatchDTO matchDTO = new MatchDTO(player1, player2, new MatchScore());
         UUID matchId = UUID.randomUUID();
 
