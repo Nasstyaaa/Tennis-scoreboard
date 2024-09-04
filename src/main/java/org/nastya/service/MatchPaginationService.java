@@ -14,7 +14,7 @@ public class MatchPaginationService {
 
     public PaginationResponseDTO getPaginatedMatches(PaginationRequestDTO paginationRequestDTO) {
         String playerName = paginationRequestDTO.getPlayerName();
-        String page = paginationRequestDTO.getPlayerName();
+        String page = paginationRequestDTO.getPage();
         int pageSize = 4;
         int pageNumber = ((page != null && !page.trim().isEmpty()) ? Integer.parseInt(page) : 1);
         int offset = (pageNumber - 1) * pageSize;
@@ -23,16 +23,15 @@ public class MatchPaginationService {
         List<Match> matchList;
         if (playerName == null || playerName.trim().isEmpty() || playerDAO.findByPlayerName(playerName).isEmpty()) {
             matchList = matchDAO.findAllWithPagination(offset, pageSize);
-            totalPages = (int) Math.ceil(matchDAO.countAll() / pageSize);
+            totalPages = (int) Math.ceil((double) matchDAO.countAll() / pageSize);
         } else {
             matchList = matchDAO.findByPlayerNameWithPagination(playerName, offset, pageSize);
-            totalPages = (int) Math.ceil(matchDAO.countByPlayerName(playerName) / pageSize);
+            totalPages = (int) Math.ceil((double) matchDAO.countByPlayerName(playerName) / pageSize);
         }
 
         if (pageNumber > totalPages) {
             throw new NumberFormatException(); //TODO exception
         }
-
         return new PaginationResponseDTO(matchList, totalPages, pageNumber);
     }
 }

@@ -26,7 +26,7 @@ public class MatchDAO {
         try (Session session = DataListenerUtil.getSession()) {
             session.beginTransaction();
 
-            int matchesCount = (int) session.createQuery("FROM Match").getResultCount();
+            int matchesCount = (int) session.createSelectionQuery("FROM Match", Match.class).getResultCount();
 
             session.getTransaction().commit();
             return matchesCount;
@@ -38,8 +38,11 @@ public class MatchDAO {
         try (Session session = DataListenerUtil.getSession()) {
             session.beginTransaction();
 
-            Query query = session.createQuery("FROM Match");
-            List<Match> matches = query.setFirstResult(offset).setMaxResults(max).getResultList();
+            List<Match> matches = session.createSelectionQuery("FROM Match", Match.class)
+                    .setFirstResult(offset)
+                    .setMaxResults(max)
+                    .getResultList();
+
 
             session.getTransaction().commit();
             return matches;
