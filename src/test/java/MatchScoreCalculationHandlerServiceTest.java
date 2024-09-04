@@ -8,7 +8,6 @@ import org.nastya.service.MatchScoreCalculationService;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-//TODO rename tests
 
 public class MatchScoreCalculationHandlerServiceTest {
     private MatchScoreCalculationService matchScoreCalculationService;
@@ -27,7 +26,7 @@ public class MatchScoreCalculationHandlerServiceTest {
     }
 
     @Test
-    public void pointsNumberShouldIncrease() {
+    public void pointScored_pointCountShouldIncrease() {
         score.setPointCount(15);
 
         matchScoreCalculationService.compute(matchDTO);
@@ -36,7 +35,7 @@ public class MatchScoreCalculationHandlerServiceTest {
     }
 
     @Test
-    public void playerShouldGetAdvantage() {
+    public void pointScoredAtScore40_40_playerShouldGetAdvantage() {
         score.setPointCount(40);
         scoreOpponent.setPointCount(40);
 
@@ -46,7 +45,7 @@ public class MatchScoreCalculationHandlerServiceTest {
     }
 
     @Test
-    public void gamesNumberShouldIncreaseAfterGetAdvantage() {
+    public void pointScoredAtScoreA_40gameCountShouldIncrease() {
         score.setPointCount(40);
         score.setHasAdvantage(true);
         scoreOpponent.setPointCount(40);
@@ -62,7 +61,7 @@ public class MatchScoreCalculationHandlerServiceTest {
     }
 
     @Test
-    public void gamesNumberShouldIncreaseIfOpponentsLess() {
+    public void pointScoredAtScore40_30_gameCountShouldIncrease() {
         score.setPointCount(40);
         scoreOpponent.setPointCount(30);
 
@@ -76,7 +75,7 @@ public class MatchScoreCalculationHandlerServiceTest {
     }
 
     @Test
-    public void opponentPlayerShouldLoseAdvantage() {
+    public void pointScoredAtScore40_A_opponentShouldLoseAdvantage() {
         score.setPointCount(40);
         scoreOpponent.setPointCount(40);
         scoreOpponent.setHasAdvantage(true);
@@ -93,7 +92,7 @@ public class MatchScoreCalculationHandlerServiceTest {
 
 
     @Test
-    public void setsNumberShouldIncreaseIfOpponentsLess() {
+    public void pointScoredAtScoreA_40WithGames5_4_setCountShouldIncrease() {
         score.setPointCount(40);
         score.setHasAdvantage(true);
         scoreOpponent.setPointCount(40);
@@ -110,7 +109,7 @@ public class MatchScoreCalculationHandlerServiceTest {
     }
 
     @Test
-    public void setsNumberShouldIncreaseIfOpponentsLessThanTwo() {
+    public void pointScoredAtScoreA_40WithGames6_5_setCountShouldIncrease() {
         score.setPointCount(40);
         score.setHasAdvantage(true);
         scoreOpponent.setPointCount(40);
@@ -127,7 +126,7 @@ public class MatchScoreCalculationHandlerServiceTest {
     }
 
     @Test
-    public void isTieBreakShouldTrue() {
+    public void pointScoredAtScoreA_40WithGames5_6_tieBreakShouldStart() {
         score.setPointCount(40);
         score.setHasAdvantage(true);
         scoreOpponent.setPointCount(40);
@@ -140,21 +139,16 @@ public class MatchScoreCalculationHandlerServiceTest {
     }
 
     @Test
-    public void pointsNumberShouldIncreaseInTieBreak() {
-        score.setPointCount(40);
-        score.setHasAdvantage(true);
-        scoreOpponent.setPointCount(40);
-        score.setGameCount(5);
-        scoreOpponent.setGameCount(6);
+    public void pointScoredAtScore0_0WithTieBreak_pointCountShouldIncrease() {
+        matchDTO.setTieBreak(true);
 
-        matchScoreCalculationService.compute(matchDTO);
         matchScoreCalculationService.compute(matchDTO);
 
         assertEquals(1, score.getPointCount());
     }
 
     @Test
-    public void setsNumberShouldIncreaseInTieBreak() {
+    public void pointScoredAtScore7_6WithTieBreak_setCountShouldIncrease() {
         matchDTO.setTieBreak(true);
         score.setPointCount(7);
         scoreOpponent.setPointCount(6);
@@ -166,12 +160,13 @@ public class MatchScoreCalculationHandlerServiceTest {
     }
 
     @Test
-    public void winnerShouldNotNull() {
+    public void pointScoredAtScore40_30WithGames5_4ithSets1_1_winnerDefined() {
         score.setSetCount(1);
         scoreOpponent.setSetCount(1);
-        matchDTO.setTieBreak(true);
-        score.setPointCount(7);
-        scoreOpponent.setPointCount(6);
+        score.setGameCount(5);
+        scoreOpponent.setGameCount(4);
+        score.setPointCount(40);
+        scoreOpponent.setPointCount(30);
 
         matchScoreCalculationService.compute(matchDTO);
 
