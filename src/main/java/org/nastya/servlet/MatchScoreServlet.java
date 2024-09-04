@@ -26,17 +26,22 @@ public class MatchScoreServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        UUID uuid = UUID.fromString(request.getParameter("uuid"));
-        MatchDTO currentMatch = ongoingMatchesService.get(uuid);
-        request.setAttribute("uuid", uuid);
+        try {
+            UUID uuid = UUID.fromString(request.getParameter("uuid"));
+            MatchDTO currentMatch = ongoingMatchesService.get(uuid);
+            request.setAttribute("uuid", uuid);
 
-        if (currentMatch == null) {
-            request.getRequestDispatcher("/not-found-match.jsp").forward(request, response);
+            if (currentMatch == null) {
+                request.getRequestDispatcher("/not-found-match.jsp").forward(request, response);
+            }
+
+            request.setAttribute("match", currentMatch);
+            response.setContentType("text/html; charset=UTF-8");
+            request.getRequestDispatcher("/match-score.jsp").forward(request, response);
+
+        }catch (IllegalArgumentException e) {
+            request.getRequestDispatcher("/exception.jsp").forward(request, response);
         }
-
-        request.setAttribute("match", currentMatch);
-        response.setContentType("text/html; charset=UTF-8");
-        request.getRequestDispatcher("/match-score.jsp").forward(request, response);
     }
 
 
