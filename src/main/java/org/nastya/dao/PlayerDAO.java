@@ -13,8 +13,9 @@ public class PlayerDAO {
         try (Session session = DataListenerUtil.getSession()) {
             session.beginTransaction();
 
-            String queryString = "FROM Player WHERE name = :name";
-            Player player = (Player) session.createQuery(queryString).setParameter("name", name).uniqueResult();
+            Player player = session.createSelectionQuery("FROM Player WHERE name = :name", Player.class)
+                    .setParameter("name", name)
+                    .uniqueResult();
 
             session.getTransaction().commit();
             return Optional.ofNullable(player);

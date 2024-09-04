@@ -1,7 +1,6 @@
 package org.nastya.dao;
 
 
-import jakarta.persistence.Query;
 import org.hibernate.Session;
 import org.nastya.model.Match;
 import org.nastya.util.DataListenerUtil;
@@ -43,21 +42,20 @@ public class MatchDAO {
                     .setMaxResults(max)
                     .getResultList();
 
-
             session.getTransaction().commit();
             return matches;
         }
     }
 
     public List<Match> findByPlayerNameWithPagination(String namePlayer, int offset, int max) {
+
         try (Session session = DataListenerUtil.getSession()) {
             session.beginTransaction();
 
-            Query query = session.createQuery("""
-                    FROM Match WHERE player1.name = :namePlayer OR player2.name = :namePlayer""");
-
-            query.setParameter("namePlayer", namePlayer);
-            List<Match> matches = query.setFirstResult(offset).setMaxResults(max).getResultList();
+            List<Match> matches = session.createSelectionQuery("""
+                            FROM Match WHERE player1.name = :namePlayer OR player2.name = :namePlayer""", Match.class)
+                    .setParameter("namePlayer", namePlayer)
+                    .setFirstResult(offset).setMaxResults(max).getResultList();
 
             session.getTransaction().commit();
             return matches;
@@ -65,12 +63,12 @@ public class MatchDAO {
     }
 
     public int countByPlayerName(String namePlayer) {
+
         try (Session session = DataListenerUtil.getSession()) {
             session.beginTransaction();
 
-            int matchesCount = (int) session.createQuery("""
-                            
-                            FROM Match WHERE player1.name = :namePlayer OR player2.name = :namePlayer""")
+            int matchesCount = (int) session.createSelectionQuery("""
+                            FROM Match WHERE player1.name = :namePlayer OR player2.name = :namePlayer""", Match.class)
                     .setParameter("namePlayer", namePlayer)
                     .getResultCount();
 
